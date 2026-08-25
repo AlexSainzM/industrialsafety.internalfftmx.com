@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inspecciones de Seguridad Industrial | FFT México</title>
+  <meta name="description" content="Catálogo de inspecciones de Seguridad Industrial de FFT México.">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/templetes/form_v1/styles.css">
+  <style>
+    .catalog-card {
+      height: 100%;
+      border: 1px solid rgba(87, 87, 86, 0.16);
+      border-radius: var(--fft-radius);
+      box-shadow: var(--fft-shadow-sm);
+      transition: transform var(--fft-transition), box-shadow var(--fft-transition);
+    }
+
+    .catalog-card:hover {
+      box-shadow: var(--fft-shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .catalog-card .stretched-link:focus-visible {
+      outline: 3px solid var(--fft-green);
+      outline-offset: 0.25rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top px-3 px-md-5 fft-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-semibold" href="index.html">FFT México</a>
+      </div>
+    </nav>
+
+    <div class="container pt-5 mt-5">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <h1 class="display-5 fw-bold mb-4">Inspecciones de Seguridad Industrial</h1>
+          <p class="lead mb-3">Selecciona la inspección que vas a realizar.</p>
+          <p class="text-muted mb-0">Cada registro corresponde a una inspección concreta en un momento determinado.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container py-5" aria-labelledby="catalogHeading">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <h2 id="catalogHeading" class="form-section-title">Inspecciones disponibles</h2>
+          <div class="row g-4 mt-1">
+            <div class="col-md-6 col-xl-4">
+              <article class="card catalog-card">
+                <div class="card-body p-4">
+                  <p class="text-muted small mb-2">02040p54 · Rev. 03</p>
+                  <h3 class="h4 mb-2">
+                    <a class="stretched-link text-decoration-none" href="forms/taladro-electrico/">Taladro Eléctrico</a>
+                  </h3>
+                  <p class="mb-0 text-muted">Check List para inspeccionar un taladro eléctrico antes de su uso.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="fft-footer text-center py-4 mt-5">
+    <div class="container">
+      <p class="mb-0">&copy; <span id="currentYear"></span> FFT México. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+          crossorigin="anonymous"></script>
+  <script>
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+      yearElement.textContent = String(new Date().getFullYear());
+    }
+  </script>
+</body>
+</html>

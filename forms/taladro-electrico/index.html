@@ -1,50 +1,25 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <!--
-    FFT México - Static Form Template
-    Template Version: 1.0.0
-
-    Responsibility areas:
-    TEMPLATE CORE — protected reusable infrastructure. Do not modify unless technically necessary.
-    TEMPLATE CONFIGURATION — values that MUST be customized for each implementation without changing the surrounding structure.
-    FORM-SPECIFIC CONTENT — questions and controls belonging to the individual form.
-
-    Replace every {{PLACEHOLDER_NAME}} marker before production.
-    A finished production form must contain ZERO unresolved {{...}} placeholders.
-  -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check List - Taladro Eléctrico | FFT México</title>
+  <meta name="description" content="Inspección de un taladro eléctrico específico antes de su utilización. Documento 02040p54, revisión 03.">
 
-  <!-- TEMPLATE CONFIGURATION -->
-  <title>{{FORM_TITLE}} | FFT México</title>
-  <meta name="description" content="{{FORM_META_DESCRIPTION}}">
-
-  <!-- =====================================================
-        TEMPLATE CORE — DO NOT MODIFY FOR INDIVIDUAL FORMS
-  ====================================================== -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
         crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../../assets/templetes/form_v1/styles.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!-- =====================================================
-       TEMPLATE CORE — DO NOT MODIFY FOR INDIVIDUAL FORMS
-  ====================================================== -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top px-3 px-md-5 fft-navbar">
       <div class="container-fluid">
-        <!-- These relative paths depend on the expected FFT internal-services deployment structure. -->
-        <a class="navbar-brand" href="#" aria-label="FFT México">
-          <img src="../../img/common/fft_logonormal_headers.webp"
-               alt="FFT México"
-               height="30"
-               class="d-inline-block align-text-top">
-        </a>
+        <a class="navbar-brand fw-semibold" href="../../index.html">FFT México</a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -57,9 +32,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="../../../index.html">
+              <a class="nav-link" href="../../index.html">
                 <i class="bi bi-arrow-left-circle me-1" aria-hidden="true"></i>
-                Volver a Servicios Internos
+                Volver al catálogo
               </a>
             </li>
           </ul>
@@ -70,12 +45,15 @@
     <div class="container pt-5 mt-5">
       <div class="row">
         <div class="col-lg-10 mx-auto">
-          <!-- TEMPLATE CONFIGURATION -->
-          <h1 class="display-5 fw-bold mb-4">{{FORM_TITLE}}</h1>
-          <p class="lead mb-3">{{FORM_INTRODUCTION}}</p>
-          <p class="text-muted mb-4">{{FORM_INSTRUCTIONS}}</p>
+          <h1 class="display-5 fw-bold mb-4">Check List - Taladro Eléctrico</h1>
+          <p class="lead mb-3">Registra la inspección de un taladro eléctrico específico, realizada en este momento antes de su utilización.</p>
+          <p class="text-muted mb-3">Responde cada criterio, adjunta evidencia cuando marques No cumple y revisa el resumen antes de enviar.</p>
+          <div class="inspection-meta" aria-label="Identificación del documento">
+            <span class="inspection-meta-item">Documento 02040p54</span>
+            <span class="inspection-meta-item">Revisión 03</span>
+            <span class="inspection-meta-item">13.10.2025</span>
+          </div>
 
-          <!-- TEMPLATE CORE -->
           <div class="alert alert-warning border-0 shadow-sm fft-required-notice" role="note">
             <i class="bi bi-asterisk text-danger" aria-hidden="true"></i>
             Los campos marcados con <span class="required-indicator" aria-hidden="true">*</span> son obligatorios.
@@ -89,39 +67,520 @@
     <section class="container py-5" aria-labelledby="formSectionTitle">
       <div class="row mb-5">
         <div class="col-lg-10 mx-auto">
-          <!-- TEMPLATE CORE form shell. Customize only action={{FORMSPREE_ENDPOINT}}. -->
+          <div id="successPanel" class="success-panel d-none" tabindex="-1">
+            <h2 class="h3 mb-3">
+              <i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i>
+              Inspección registrada correctamente.
+            </h2>
+            <p class="mb-2">El registro se envió con el siguiente identificador:</p>
+            <p class="mb-4">
+              <span class="visually-hidden">Identificador de inspección:</span>
+              <span id="successInspectionId" class="inspection-id-value"></span>
+            </p>
+            <a class="btn btn-primary btn-lg" href="../../index.html">
+              <i class="bi bi-arrow-left-circle me-2" aria-hidden="true"></i>
+              Volver al catálogo
+            </a>
+          </div>
+
           <form id="mainForm"
                 class="fft-form needs-validation"
-                action="{{FORMSPREE_ENDPOINT}}"
+                action="https://formspree.io/f/FORMSPREE_TALADRO_ENDPOINT"
                 method="POST"
+                enctype="multipart/form-data"
                 novalidate>
+            <input type="hidden" name="form_id" value="02040p54">
+            <input type="hidden" name="form_revision" value="03">
+            <input type="hidden" name="form_slug" value="taladro-electrico">
+            <input type="hidden" name="form_name" value="Check List - Taladro Eléctrico">
+            <input type="hidden" name="inspection_id" id="inspection_id" value="">
+            <input type="hidden" name="inspection_timestamp" id="inspection_timestamp" value="">
+            <input type="hidden" name="total_criteria" id="total_criteria" value="10">
+            <input type="hidden" name="compliant_count" id="compliant_count" value="0">
+            <input type="hidden" name="non_compliant_count" id="non_compliant_count" value="0">
+            <input type="hidden" name="not_applicable_count" id="not_applicable_count" value="0">
+            <input type="hidden" name="has_non_compliances" id="has_non_compliances" value="false">
+
             <div class="form-section">
-              <!-- TEMPLATE CONFIGURATION -->
-              <h2 id="formSectionTitle" class="form-section-title">{{SECTION_TITLE}}</h2>
-              <p class="form-section-description">{{SECTION_DESCRIPTION}}</p>
+              <h2 id="formSectionTitle" class="form-section-title">Datos generales</h2>
+              <p class="form-section-description">Identifica a la persona que realiza la inspección y el contexto de trabajo.</p>
 
-              <!-- =====================================================
-                   FORM-SPECIFIC CONTENT — EDIT FOR EACH IMPLEMENTATION
+              <div class="form-question">
+                <label for="worker_name" class="form-label">
+                  Nombre del trabajador <span class="required-indicator" aria-hidden="true">*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="worker_name"
+                       name="worker_name"
+                       autocomplete="name"
+                       required
+                       aria-describedby="worker_name_error">
+                <div class="invalid-feedback" id="worker_name_error">Ingresa el nombre del trabajador.</div>
+              </div>
 
-                   Insert all form questions in this single area.
+              <div class="form-question">
+                <label for="project" class="form-label">
+                  Proyecto <span class="required-indicator" aria-hidden="true">*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="project"
+                       name="project"
+                       required
+                       aria-describedby="project_error">
+                <div class="invalid-feedback" id="project_error">Ingresa el proyecto.</div>
+              </div>
 
-                   Field convention: pNN_short_description
-                   Examples: p01_nombre, p02_departamento
-                   Use lowercase snake_case without accents and a
-                   two-digit question number. Keep id and name equal
-                   whenever possible.
+              <div class="form-question">
+                <label for="location" class="form-label">
+                  Área / Ubicación <span class="required-indicator" aria-hidden="true">*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="location"
+                       name="location"
+                       required
+                       aria-describedby="location_error">
+                <div class="invalid-feedback" id="location_error">Ingresa el área o ubicación.</div>
+              </div>
+            </div>
 
-                   Conditional fields:
-                   - Hide inactive containers with Bootstrap's d-none.
-                   - Disable inactive controls so they cannot block native validation.
-                   - Fields required when active must use data-required="true".
-                   - Apply required only while a conditional section is active.
-              ====================================================== -->
+            <div class="form-section">
+              <h2 class="form-section-title">Identificación del taladro</h2>
+              <p class="form-section-description">Captura el modelo del equipo inspeccionado. La fecha y hora se registran automáticamente.</p>
 
-              <!-- TEMPLATE CORE -->
+              <div class="form-question">
+                <label for="drill_model" class="form-label">
+                  Modelo <span class="required-indicator" aria-hidden="true">*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="drill_model"
+                       name="drill_model"
+                       required
+                       aria-describedby="drill_model_error">
+                <div class="invalid-feedback" id="drill_model_error">Ingresa el modelo del taladro.</div>
+              </div>
+
+              <p class="form-help mb-0">
+                Fecha y hora de la inspección:
+                <time id="inspectionTimestampDisplay">se registrará al enviar</time>
+              </p>
+            </div>
+
+            <div class="form-section">
+              <h2 class="form-section-title">Referencia visual del equipo</h2>
+              <p class="form-section-description">Usa esta imagen como apoyo para identificar los componentes relacionados con los criterios. No sustituye la revisión del equipo real.</p>
+
+              <figure class="reference-visual">
+                <img src="../../assets/img/forms/taladro-electrico/taladro-electrico-referencia.png"
+                     alt="Diagrama de referencia de un taladro eléctrico con sus componentes identificados"
+                     class="img-fluid">
+                <figcaption class="form-help">Referencia visual de los componentes del taladro eléctrico.</figcaption>
+              </figure>
+            </div>
+
+            <div class="form-section">
+              <h2 class="form-section-title" id="criteriaHeading">Criterios de inspección</h2>
+              <p class="form-section-description">Responde los diez criterios. Si marcas No cumple, deberás adjuntar evidencia de ese criterio.</p>
+
+              <div class="criteria-list">
+                <fieldset class="criterion-block" data-criterion-id="taladro_tope_profundidad">
+                  <legend>
+                    Verificar el tope de profundidad.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_tope_profundidad" id="taladro_tope_profundidad_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_tope_profundidad_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_tope_profundidad" id="taladro_tope_profundidad_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_tope_profundidad_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_tope_profundidad" id="taladro_tope_profundidad_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_tope_profundidad_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_tope_profundidad">
+                    <label class="form-label" for="evidence_taladro_tope_profundidad">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_tope_profundidad"
+                           name="evidence_taladro_tope_profundidad"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_tope_profundidad evidence_error_taladro_tope_profundidad">
+                    <div class="form-help" id="evidence_help_taladro_tope_profundidad">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_tope_profundidad">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_tope_profundidad">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_tope_profundidad" name="observation_taladro_tope_profundidad" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_condicion_broca">
+                  <legend>
+                    Verificar la condición de la broca.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_condicion_broca" id="taladro_condicion_broca_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_condicion_broca_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_condicion_broca" id="taladro_condicion_broca_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_condicion_broca_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_condicion_broca" id="taladro_condicion_broca_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_condicion_broca_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_condicion_broca">
+                    <label class="form-label" for="evidence_taladro_condicion_broca">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_condicion_broca"
+                           name="evidence_taladro_condicion_broca"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_condicion_broca evidence_error_taladro_condicion_broca">
+                    <div class="form-help" id="evidence_help_taladro_condicion_broca">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_condicion_broca">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_condicion_broca">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_condicion_broca" name="observation_taladro_condicion_broca" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_interruptor">
+                  <legend>
+                    Verificar el interruptor.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_interruptor" id="taladro_interruptor_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_interruptor_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_interruptor" id="taladro_interruptor_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_interruptor_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_interruptor" id="taladro_interruptor_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_interruptor_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_interruptor">
+                    <label class="form-label" for="evidence_taladro_interruptor">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_interruptor"
+                           name="evidence_taladro_interruptor"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_interruptor evidence_error_taladro_interruptor">
+                    <div class="form-help" id="evidence_help_taladro_interruptor">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_interruptor">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_interruptor">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_interruptor" name="observation_taladro_interruptor" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_mango_auxiliar">
+                  <legend>
+                    Verificar el estado del mango auxiliar.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_mango_auxiliar" id="taladro_mango_auxiliar_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_mango_auxiliar_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_mango_auxiliar" id="taladro_mango_auxiliar_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_mango_auxiliar_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_mango_auxiliar" id="taladro_mango_auxiliar_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_mango_auxiliar_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_mango_auxiliar">
+                    <label class="form-label" for="evidence_taladro_mango_auxiliar">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_mango_auxiliar"
+                           name="evidence_taladro_mango_auxiliar"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_mango_auxiliar evidence_error_taladro_mango_auxiliar">
+                    <div class="form-help" id="evidence_help_taladro_mango_auxiliar">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_mango_auxiliar">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_mango_auxiliar">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_mango_auxiliar" name="observation_taladro_mango_auxiliar" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_cambio_marcha">
+                  <legend>
+                    Verificar el botón de cambio de marcha.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_cambio_marcha" id="taladro_cambio_marcha_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_cambio_marcha_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_cambio_marcha" id="taladro_cambio_marcha_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_cambio_marcha_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_cambio_marcha" id="taladro_cambio_marcha_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_cambio_marcha_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_cambio_marcha">
+                    <label class="form-label" for="evidence_taladro_cambio_marcha">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_cambio_marcha"
+                           name="evidence_taladro_cambio_marcha"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_cambio_marcha evidence_error_taladro_cambio_marcha">
+                    <div class="form-help" id="evidence_help_taladro_cambio_marcha">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_cambio_marcha">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_cambio_marcha">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_cambio_marcha" name="observation_taladro_cambio_marcha" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_uso_continuo">
+                  <legend>
+                    Verificar el botón de uso continuo.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_uso_continuo" id="taladro_uso_continuo_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_uso_continuo_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_uso_continuo" id="taladro_uso_continuo_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_uso_continuo_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_uso_continuo" id="taladro_uso_continuo_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_uso_continuo_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_uso_continuo">
+                    <label class="form-label" for="evidence_taladro_uso_continuo">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_uso_continuo"
+                           name="evidence_taladro_uso_continuo"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_uso_continuo evidence_error_taladro_uso_continuo">
+                    <div class="form-help" id="evidence_help_taladro_uso_continuo">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_uso_continuo">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_uso_continuo">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_uso_continuo" name="observation_taladro_uso_continuo" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_broquero_muelas">
+                  <legend>
+                    Verificar el estado del broquero y revisión de muelas.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_broquero_muelas" id="taladro_broquero_muelas_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_broquero_muelas_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_broquero_muelas" id="taladro_broquero_muelas_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_broquero_muelas_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_broquero_muelas" id="taladro_broquero_muelas_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_broquero_muelas_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_broquero_muelas">
+                    <label class="form-label" for="evidence_taladro_broquero_muelas">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_broquero_muelas"
+                           name="evidence_taladro_broquero_muelas"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_broquero_muelas evidence_error_taladro_broquero_muelas">
+                    <div class="form-help" id="evidence_help_taladro_broquero_muelas">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_broquero_muelas">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_broquero_muelas">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_broquero_muelas" name="observation_taladro_broquero_muelas" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_cable_alimentacion_clavija">
+                  <legend>
+                    Verificar cable de alimentación y clavija.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_cable_alimentacion_clavija" id="taladro_cable_alimentacion_clavija_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_cable_alimentacion_clavija_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_cable_alimentacion_clavija" id="taladro_cable_alimentacion_clavija_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_cable_alimentacion_clavija_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_cable_alimentacion_clavija" id="taladro_cable_alimentacion_clavija_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_cable_alimentacion_clavija_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_cable_alimentacion_clavija">
+                    <label class="form-label" for="evidence_taladro_cable_alimentacion_clavija">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_cable_alimentacion_clavija"
+                           name="evidence_taladro_cable_alimentacion_clavija"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_cable_alimentacion_clavija evidence_error_taladro_cable_alimentacion_clavija">
+                    <div class="form-help" id="evidence_help_taladro_cable_alimentacion_clavija">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_cable_alimentacion_clavija">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_cable_alimentacion_clavija">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_cable_alimentacion_clavija" name="observation_taladro_cable_alimentacion_clavija" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_selector_modo">
+                  <legend>
+                    Verificar botón selector (taladro-rotomartillo).
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_selector_modo" id="taladro_selector_modo_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_selector_modo_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_selector_modo" id="taladro_selector_modo_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_selector_modo_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_selector_modo" id="taladro_selector_modo_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_selector_modo_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_selector_modo">
+                    <label class="form-label" for="evidence_taladro_selector_modo">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_selector_modo"
+                           name="evidence_taladro_selector_modo"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_selector_modo evidence_error_taladro_selector_modo">
+                    <div class="form-help" id="evidence_help_taladro_selector_modo">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_selector_modo">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_selector_modo">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_selector_modo" name="observation_taladro_selector_modo" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="taladro_ruidos_motor">
+                  <legend>
+                    Verificar ruidos extraños en el motor.
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options" role="radiogroup" aria-required="true">
+                    <input type="radio" class="btn-check" name="taladro_ruidos_motor" id="taladro_ruidos_motor_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="taladro_ruidos_motor_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_ruidos_motor" id="taladro_ruidos_motor_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="taladro_ruidos_motor_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="taladro_ruidos_motor" id="taladro_ruidos_motor_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="taladro_ruidos_motor_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field d-none" data-evidence-for="taladro_ruidos_motor">
+                    <label class="form-label" for="evidence_taladro_ruidos_motor">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_taladro_ruidos_motor"
+                           name="evidence_taladro_ruidos_motor"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           data-required="true"
+                           aria-describedby="evidence_help_taladro_ruidos_motor evidence_error_taladro_ruidos_motor">
+                    <div class="form-help" id="evidence_help_taladro_ruidos_motor">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_taladro_ruidos_motor">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_taladro_ruidos_motor">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_taladro_ruidos_motor" name="observation_taladro_ruidos_motor" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="form-section summary-panel">
+              <h2 class="form-section-title">Resumen antes del envío</h2>
+              <p class="form-section-description">Revisa estos datos antes de registrar la inspección.</p>
+
+              <dl class="row mb-4">
+                <dt class="col-sm-4">Trabajador</dt>
+                <dd class="col-sm-8" id="summaryWorker">—</dd>
+                <dt class="col-sm-4">Proyecto</dt>
+                <dd class="col-sm-8" id="summaryProject">—</dd>
+                <dt class="col-sm-4">Ubicación</dt>
+                <dd class="col-sm-8" id="summaryLocation">—</dd>
+                <dt class="col-sm-4">Modelo</dt>
+                <dd class="col-sm-8" id="summaryModel">—</dd>
+                <dt class="col-sm-4">Fecha</dt>
+                <dd class="col-sm-8" id="summaryDate">—</dd>
+              </dl>
+
+              <div class="summary-counts mb-4" aria-live="polite">
+                <div class="summary-count">
+                  <span class="summary-count-value" id="summaryTotal">10</span>
+                  <span class="summary-count-label">Criterios</span>
+                </div>
+                <div class="summary-count">
+                  <span class="summary-count-value" id="summaryCompliant">0</span>
+                  <span class="summary-count-label">Cumple</span>
+                </div>
+                <div class="summary-count">
+                  <span class="summary-count-value" id="summaryNonCompliant">0</span>
+                  <span class="summary-count-label">No cumple</span>
+                </div>
+                <div class="summary-count">
+                  <span class="summary-count-value" id="summaryNotApplicable">0</span>
+                  <span class="summary-count-label">No aplica</span>
+                </div>
+              </div>
+
+              <h3 class="h5">Criterios con No cumple</h3>
+              <p id="summaryNonCompliantEmpty" class="form-help">No hay no conformidades registradas.</p>
+              <ul id="summaryNonCompliantList" class="summary-nonconformities" hidden></ul>
+            </div>
+
+            <div class="form-section">
+              <h2 class="form-section-title">Validación y envío</h2>
+              <p class="form-section-description">El formulario no se enviará si falta un dato obligatorio o si alguna no conformidad no tiene evidencia.</p>
+
+              <div id="formErrorAlert"
+                   class="alert alert-danger form-status-region"
+                   role="alert"
+                   aria-live="assertive"
+                   hidden></div>
+              <div id="submitErrorAlert"
+                   class="alert alert-danger"
+                   role="alert"
+                   aria-live="assertive"
+                   tabindex="-1"
+                   hidden>
+                No fue posible registrar la inspección en este momento. La información capturada se conservó. Puedes intentar enviarla de nuevo.
+              </div>
+
               <div class="form-actions">
-                <button class="btn btn-primary btn-lg" type="submit">
-                  <i class="bi bi-send me-2" aria-hidden="true"></i>Enviar
+                <button class="btn btn-primary btn-lg" type="submit" id="submitButton">
+                  <i class="bi bi-send me-2" aria-hidden="true"></i>
+                  Enviar inspección
                 </button>
               </div>
             </div>
@@ -131,16 +590,13 @@
     </section>
   </main>
 
-  <!-- TEMPLATE CORE -->
   <footer class="fft-footer text-center py-4 mt-5">
     <div class="container">
       <p class="mb-1">&copy; <span id="currentYear"></span> FFT México. Todos los derechos reservados.</p>
-      <!-- TEMPLATE CONFIGURATION -->
-      <p class="mb-0 small">{{FOOTER_DESCRIPTION}}</p>
+      <p class="mb-0 small">Check List - Taladro Eléctrico · 02040p54 Rev. 03</p>
     </div>
   </footer>
 
-  <!-- TEMPLATE CORE -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
           crossorigin="anonymous"></script>
