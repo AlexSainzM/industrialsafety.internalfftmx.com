@@ -1,6 +1,6 @@
 /**
  * FFT México - Static Form Template
- * Template Version: 1.0.0
+ * Template Version: 1.1.0
  *
  * TEMPLATE CORE — protected reusable infrastructure.
  * FORM-SPECIFIC CONTENT — optional styles at the end of this file.
@@ -84,6 +84,13 @@ main {
 
 .fft-navbar .nav-link:hover::after {
   width: 80%;
+}
+
+.fft-eyebrow {
+  color: var(--fft-green-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
 }
 
 .fft-required-notice {

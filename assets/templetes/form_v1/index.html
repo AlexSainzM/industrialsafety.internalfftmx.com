@@ -3,7 +3,7 @@
 <head>
   <!--
     FFT México - Static Form Template
-    Template Version: 1.0.0
+    Template Version: 1.1.0
 
     Responsibility areas:
     TEMPLATE CORE — protected reusable infrastructure. Do not modify unless technically necessary.
@@ -57,9 +57,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="../../../index.html">
-                <i class="bi bi-arrow-left-circle me-1" aria-hidden="true"></i>
-                Volver a Servicios Internos
+              <!-- TEMPLATE CONFIGURATION -->
+              <a class="nav-link" href="{{NAV_HREF}}">
+                <i class="bi {{NAV_ICON}} me-1" aria-hidden="true"></i>
+                {{NAV_LABEL}}
               </a>
             </li>
           </ul>
@@ -71,8 +72,9 @@
       <div class="row">
         <div class="col-lg-10 mx-auto">
           <!-- TEMPLATE CONFIGURATION -->
-          <h1 class="display-5 fw-bold mb-4">{{FORM_TITLE}}</h1>
-          <p class="lead mb-3">{{FORM_INTRODUCTION}}</p>
+          <p class="fft-eyebrow mb-2">{{FORM_EYEBROW}}</p>
+          <h1 class="display-5 fw-bold mb-3">{{FORM_TITLE}}</h1>
+          <p class="lead mb-2">{{FORM_INTRODUCTION}}</p>
           <p class="text-muted mb-4">{{FORM_INSTRUCTIONS}}</p>
 
           <!-- TEMPLATE CORE -->
@@ -95,6 +97,7 @@
                 action="{{FORMSPREE_ENDPOINT}}"
                 method="POST"
                 novalidate>
+            <input type="hidden" name="_next" value="{{FORM_THANKS_URL}}">
             <div class="form-section">
               <!-- TEMPLATE CONFIGURATION -->
               <h2 id="formSectionTitle" class="form-section-title">{{SECTION_TITLE}}</h2>
@@ -116,12 +119,19 @@
                    - Disable inactive controls so they cannot block native validation.
                    - Fields required when active must use data-required="true".
                    - Apply required only while a conditional section is active.
+
+                   Grouped controls:
+                  - Radio options belonging to one question must share the same name.
+                  - Use unique IDs for each option.
+                  - Apply required to the first radio of a required group.
+                  - Validation feedback for a radio/checkbox group belongs to the group, not to an individual option.
+                  - Use fieldset + legend for grouped controls.
               ====================================================== -->
 
               <!-- TEMPLATE CORE -->
               <div class="form-actions">
                 <button class="btn btn-primary btn-lg" type="submit">
-                  <i class="bi bi-send me-2" aria-hidden="true"></i>Enviar
+                  <i class="bi {{SUBMIT_ICON}} me-2" aria-hidden="true"></i>{{SUBMIT_LABEL}}
                 </button>
               </div>
             </div>
