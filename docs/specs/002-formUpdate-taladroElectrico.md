@@ -1,6 +1,6 @@
 # Spec 002 — Actualización del formulario de Taladro Eléctrico
 
-- **Estado** Lista para implementar
+- **Estado** Implementada y validada en local
 - **Fecha** 2026-11-24
 - **Formulario** 02040p54 — Taladro Eléctrico, Rev. 03
 - **Spec relacionada** [Spec 001 — MVP Taladro Eléctrico](001-form-taladroElectrico.md)
@@ -125,7 +125,9 @@ La ruta del logo desde el formulario es `../../assets/img/common/fft_logonormal_
 
 ## 11. Cierre de la iteración
 
-La implementación se dará por completada al verificar los criterios CA-01 a CA-07. La validación está pendiente de la implementación.
+Los criterios CA-01 a CA-07 se verificaron en Chrome con vistas de escritorio y móvil y respuestas simuladas de Formspree. Se comprobó también la confirmación en el formulario cuando falla el almacenamiento de sesión tras un envío aceptado.
+
+El despliegue requiere configurar el endpoint real de Formspree en el atributo `action`.
 
 ## 12. Historial de decisiones
 

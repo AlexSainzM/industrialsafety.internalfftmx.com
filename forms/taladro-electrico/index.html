@@ -19,7 +19,12 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top px-3 px-md-5 fft-navbar">
       <div class="container-fluid">
-        <a class="navbar-brand fw-semibold" href="../../index.html">FFT México</a>
+        <a class="navbar-brand" href="../../index.html" aria-label="FFT México">
+          <img src="../../assets/img/common/fft_logonormal_headers.webp"
+               alt="FFT México"
+               height="30"
+               class="d-inline-block align-text-top">
+        </a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -42,17 +47,13 @@
       </div>
     </nav>
 
-    <div class="container pt-5 mt-5">
+    <div class="container pt-5 inspection-intro">
       <div class="row">
         <div class="col-lg-10 mx-auto">
-          <h1 class="display-5 fw-bold mb-4">Check List - Taladro Eléctrico</h1>
-          <p class="lead mb-3">Registra la inspección de un taladro eléctrico específico, realizada en este momento antes de su utilización.</p>
-          <p class="text-muted mb-3">Responde cada criterio, adjunta evidencia cuando marques No cumple y revisa el resumen antes de enviar.</p>
-          <div class="inspection-meta" aria-label="Identificación del documento">
-            <span class="inspection-meta-item">Documento 02040p54</span>
-            <span class="inspection-meta-item">Revisión 03</span>
-            <span class="inspection-meta-item">13.10.2025</span>
-          </div>
+          <p class="fft-eyebrow mb-2">Documento 02040p54 · Revisión 03 · 13.10.2025</p>
+          <h1 class="display-5 fw-bold mb-3">Check List - Taladro Eléctrico</h1>
+          <p class="lead mb-2">Registra la inspección de un taladro eléctrico específico, realizada en este momento antes de su utilización.</p>
+          <p class="text-muted mb-4">Responde cada criterio, adjunta evidencia cuando marques No cumple y revisa el resumen antes de enviar.</p>
 
           <div class="alert alert-warning border-0 shadow-sm fft-required-notice" role="note">
             <i class="bi bi-asterisk text-danger" aria-hidden="true"></i>
@@ -64,11 +65,11 @@
   </header>
 
   <main>
-    <section class="container py-5" aria-labelledby="formSectionTitle">
+    <section class="container py-5" id="inspectionSection" aria-labelledby="formSectionTitle">
       <div class="row mb-5">
         <div class="col-lg-10 mx-auto">
-          <div id="successPanel" class="success-panel d-none" tabindex="-1">
-            <h2 class="h3 mb-3">
+          <section id="successPanel" class="success-panel d-none" tabindex="-1" aria-labelledby="successTitle">
+            <h2 id="successTitle" class="h3 mb-3">
               <i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i>
               Inspección registrada correctamente.
             </h2>
@@ -81,11 +82,11 @@
               <i class="bi bi-arrow-left-circle me-2" aria-hidden="true"></i>
               Volver al catálogo
             </a>
-          </div>
+          </section>
 
           <form id="mainForm"
                 class="fft-form needs-validation"
-                action="https://formspree.io/f/FORMSPREE_TALADRO_ENDPOINT"
+                action="https://formspree.io/f/xkjrkygb"
                 method="POST"
                 enctype="multipart/form-data"
                 novalidate>
@@ -188,15 +189,15 @@
               <div class="criteria-list">
                 <fieldset class="criterion-block" data-criterion-id="taladro_tope_profundidad">
                   <legend>
-                    Verificar el tope de profundidad.
+                    01 - Verificar el tope de profundidad
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_tope_profundidad" id="taladro_tope_profundidad_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="01 - Verificar el tope de profundidad" id="taladro_tope_profundidad_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_tope_profundidad_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_tope_profundidad" id="taladro_tope_profundidad_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="01 - Verificar el tope de profundidad" id="taladro_tope_profundidad_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_tope_profundidad_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_tope_profundidad" id="taladro_tope_profundidad_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="01 - Verificar el tope de profundidad" id="taladro_tope_profundidad_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_tope_profundidad_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -221,15 +222,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_condicion_broca">
                   <legend>
-                    Verificar la condición de la broca.
+                    02 - Verificar la condición de la broca
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_condicion_broca" id="taladro_condicion_broca_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="02 - Verificar la condición de la broca" id="taladro_condicion_broca_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_condicion_broca_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_condicion_broca" id="taladro_condicion_broca_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="02 - Verificar la condición de la broca" id="taladro_condicion_broca_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_condicion_broca_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_condicion_broca" id="taladro_condicion_broca_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="02 - Verificar la condición de la broca" id="taladro_condicion_broca_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_condicion_broca_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -254,15 +255,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_interruptor">
                   <legend>
-                    Verificar el interruptor.
+                    03 - Verificar el interruptor
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_interruptor" id="taladro_interruptor_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="03 - Verificar el interruptor" id="taladro_interruptor_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_interruptor_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_interruptor" id="taladro_interruptor_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="03 - Verificar el interruptor" id="taladro_interruptor_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_interruptor_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_interruptor" id="taladro_interruptor_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="03 - Verificar el interruptor" id="taladro_interruptor_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_interruptor_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -287,15 +288,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_mango_auxiliar">
                   <legend>
-                    Verificar el estado del mango auxiliar.
+                    04 - Verificar el estado del mango auxiliar
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_mango_auxiliar" id="taladro_mango_auxiliar_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="04 - Verificar el estado del mango auxiliar" id="taladro_mango_auxiliar_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_mango_auxiliar_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_mango_auxiliar" id="taladro_mango_auxiliar_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="04 - Verificar el estado del mango auxiliar" id="taladro_mango_auxiliar_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_mango_auxiliar_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_mango_auxiliar" id="taladro_mango_auxiliar_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="04 - Verificar el estado del mango auxiliar" id="taladro_mango_auxiliar_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_mango_auxiliar_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -320,15 +321,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_cambio_marcha">
                   <legend>
-                    Verificar el botón de cambio de marcha.
+                    05 - Verificar el botón de cambio de marcha
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_cambio_marcha" id="taladro_cambio_marcha_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="05 - Verificar el botón de cambio de marcha" id="taladro_cambio_marcha_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_cambio_marcha_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_cambio_marcha" id="taladro_cambio_marcha_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="05 - Verificar el botón de cambio de marcha" id="taladro_cambio_marcha_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_cambio_marcha_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_cambio_marcha" id="taladro_cambio_marcha_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="05 - Verificar el botón de cambio de marcha" id="taladro_cambio_marcha_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_cambio_marcha_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -353,15 +354,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_uso_continuo">
                   <legend>
-                    Verificar el botón de uso continuo.
+                    06 - Verificar el botón de uso continuo
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_uso_continuo" id="taladro_uso_continuo_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="06 - Verificar el botón de uso continuo" id="taladro_uso_continuo_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_uso_continuo_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_uso_continuo" id="taladro_uso_continuo_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="06 - Verificar el botón de uso continuo" id="taladro_uso_continuo_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_uso_continuo_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_uso_continuo" id="taladro_uso_continuo_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="06 - Verificar el botón de uso continuo" id="taladro_uso_continuo_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_uso_continuo_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -386,15 +387,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_broquero_muelas">
                   <legend>
-                    Verificar el estado del broquero y revisión de muelas.
+                    07 - Verificar el estado del broquero y revisión de muelas
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_broquero_muelas" id="taladro_broquero_muelas_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="07 - Verificar el estado del broquero y revisión de muelas" id="taladro_broquero_muelas_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_broquero_muelas_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_broquero_muelas" id="taladro_broquero_muelas_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="07 - Verificar el estado del broquero y revisión de muelas" id="taladro_broquero_muelas_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_broquero_muelas_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_broquero_muelas" id="taladro_broquero_muelas_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="07 - Verificar el estado del broquero y revisión de muelas" id="taladro_broquero_muelas_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_broquero_muelas_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -419,15 +420,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_cable_alimentacion_clavija">
                   <legend>
-                    Verificar cable de alimentación y clavija.
+                    08 - Verificar cable de alimentación y clavija
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_cable_alimentacion_clavija" id="taladro_cable_alimentacion_clavija_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="08 - Verificar cable de alimentación y clavija" id="taladro_cable_alimentacion_clavija_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_cable_alimentacion_clavija_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_cable_alimentacion_clavija" id="taladro_cable_alimentacion_clavija_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="08 - Verificar cable de alimentación y clavija" id="taladro_cable_alimentacion_clavija_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_cable_alimentacion_clavija_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_cable_alimentacion_clavija" id="taladro_cable_alimentacion_clavija_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="08 - Verificar cable de alimentación y clavija" id="taladro_cable_alimentacion_clavija_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_cable_alimentacion_clavija_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -452,15 +453,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_selector_modo">
                   <legend>
-                    Verificar botón selector (taladro-rotomartillo).
+                    09 - Verificar botón selector (taladro-rotomartillo)
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_selector_modo" id="taladro_selector_modo_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="09 - Verificar botón selector (taladro-rotomartillo)" id="taladro_selector_modo_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_selector_modo_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_selector_modo" id="taladro_selector_modo_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="09 - Verificar botón selector (taladro-rotomartillo)" id="taladro_selector_modo_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_selector_modo_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_selector_modo" id="taladro_selector_modo_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="09 - Verificar botón selector (taladro-rotomartillo)" id="taladro_selector_modo_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_selector_modo_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>
@@ -485,15 +486,15 @@
 
                 <fieldset class="criterion-block" data-criterion-id="taladro_ruidos_motor">
                   <legend>
-                    Verificar ruidos extraños en el motor.
+                    10 - Verificar ruidos extraños en el motor
                     <span class="required-indicator" aria-hidden="true">*</span>
                   </legend>
                   <div class="criterion-options" role="radiogroup" aria-required="true">
-                    <input type="radio" class="btn-check" name="taladro_ruidos_motor" id="taladro_ruidos_motor_COMPLIANT" value="COMPLIANT" required>
+                    <input type="radio" class="btn-check" name="10 - Verificar ruidos extraños en el motor" id="taladro_ruidos_motor_COMPLIANT" value="COMPLIANT" required>
                     <label class="btn btn-outline-success" for="taladro_ruidos_motor_COMPLIANT">Cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_ruidos_motor" id="taladro_ruidos_motor_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <input type="radio" class="btn-check" name="10 - Verificar ruidos extraños en el motor" id="taladro_ruidos_motor_NON_COMPLIANT" value="NON_COMPLIANT">
                     <label class="btn btn-outline-danger" for="taladro_ruidos_motor_NON_COMPLIANT">No cumple</label>
-                    <input type="radio" class="btn-check" name="taladro_ruidos_motor" id="taladro_ruidos_motor_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <input type="radio" class="btn-check" name="10 - Verificar ruidos extraños en el motor" id="taladro_ruidos_motor_NOT_APPLICABLE" value="NOT_APPLICABLE">
                     <label class="btn btn-outline-secondary" for="taladro_ruidos_motor_NOT_APPLICABLE">No aplica</label>
                   </div>
                   <div class="invalid-feedback" data-criterion-message hidden>Selecciona Cumple, No cumple o No aplica.</div>

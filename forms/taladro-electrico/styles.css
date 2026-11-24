@@ -4,20 +4,18 @@
  * La identidad visual base proviene de assets/templetes/form_v1/styles.css
  */
 
+.inspection-intro {
+  margin-top: 3rem;
+}
+
+@media (max-width: 991.98px) {
+  .fft-navbar:has(.navbar-collapse:is(.show, .collapsing)) + .inspection-intro {
+    margin-top: 4rem;
+  }
+}
+
 .form-section + .form-section {
   margin-top: 1.5rem;
-}
-
-.inspection-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  margin-bottom: 1rem;
-}
-
-.inspection-meta-item {
-  color: var(--fft-gray);
-  font-size: 0.875rem;
 }
 
 .reference-visual {
@@ -122,6 +120,7 @@
 }
 
 .success-panel {
+  scroll-margin-top: 4.5rem;
   padding: clamp(1.25rem, 3vw, 2rem);
   border: 1px solid rgba(0, 157, 128, 0.28);
   border-radius: var(--fft-radius);

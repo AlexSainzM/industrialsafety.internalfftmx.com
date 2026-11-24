@@ -1,11 +1,12 @@
 /**
  * Check List - Taladro Eléctrico (02040p54 Rev. 03)
- *
- * PLACEHOLDER Formspree:
- * Reemplazar FORMSPREE_TALADRO_ENDPOINT por el ID real del endpoint
- * exclusivo de este formulario. No reutilizar endpoints de otros checklists.
  */
-const FORMSPREE_TALADRO_ENDPOINT = 'https://formspree.io/f/FORMSPREE_TALADRO_ENDPOINT';
+const SUBMITTED_RESULTS = {
+  COMPLIANT: 'Cumple',
+  NON_COMPLIANT: 'No cumple',
+  NOT_APPLICABLE: 'No aplica'
+};
+const CONFIRMED_INSPECTION_KEY = 'taladro-electrico:confirmed-inspection-id';
 
 const CRITERION_IDS = [
   'taladro_tope_profundidad',
@@ -40,8 +41,11 @@ function initializeInspection() {
   form.addEventListener('change', (event) => {
     const target = event.target;
 
-    if (target instanceof HTMLInputElement && CRITERION_IDS.includes(target.name)) {
-      handleCriterionChange(target.name);
+    if (target instanceof HTMLInputElement && target.type === 'radio') {
+      const criterion = target.closest('[data-criterion-id]');
+      if (criterion) {
+        updateEvidenceRequirement(criterion.dataset.criterionId);
+      }
     }
 
     calculateSummary();
@@ -113,23 +117,21 @@ function setInspectionIdentity() {
   }
 }
 
-function getCriterionResult(criterionId) {
-  const selected = document.querySelector(`input[name="${criterionId}"]:checked`);
-  return selected ? selected.value : '';
+function getCriterionBlock(criterionId) {
+  return document.querySelector(`[data-criterion-id="${criterionId}"]`);
+}
+
+function getSelectedCriterionOption(criterionId) {
+  return getCriterionBlock(criterionId)?.querySelector('input[type="radio"]:checked');
 }
 
 function getCriterionLabel(criterionId) {
-  const block = document.querySelector(`[data-criterion-id="${criterionId}"]`);
-  const legend = block ? block.querySelector('legend') : null;
+  const legend = getCriterionBlock(criterionId)?.querySelector('legend');
   return legend ? legend.textContent.replace('*', '').trim() : criterionId;
 }
 
-function handleCriterionChange(criterionId) {
-  updateEvidenceRequirement(criterionId);
-}
-
 function updateEvidenceRequirement(criterionId) {
-  const result = getCriterionResult(criterionId);
+  const result = getSelectedCriterionOption(criterionId)?.value;
   const panel = document.querySelector(`[data-evidence-for="${criterionId}"]`);
   const evidenceInput = document.getElementById(`evidence_${criterionId}`);
   const observationInput = document.getElementById(`observation_${criterionId}`);
@@ -185,8 +187,8 @@ function validateForm() {
   });
 
   CRITERION_IDS.forEach((criterionId) => {
-    const result = getCriterionResult(criterionId);
-    const block = document.querySelector(`[data-criterion-id="${criterionId}"]`);
+    const result = getSelectedCriterionOption(criterionId)?.value;
+    const block = getCriterionBlock(criterionId);
     const message = block ? block.querySelector('[data-criterion-message]') : null;
     const firstRadio = document.getElementById(`${criterionId}_COMPLIANT`);
     const evidenceInput = document.getElementById(`evidence_${criterionId}`);
@@ -256,7 +258,7 @@ function calculateSummary() {
   const nonCompliantLabels = [];
 
   CRITERION_IDS.forEach((criterionId) => {
-    const result = getCriterionResult(criterionId);
+    const result = getSelectedCriterionOption(criterionId)?.value;
 
     if (result === 'COMPLIANT') {
       counts.compliant_count += 1;
@@ -394,6 +396,10 @@ async function handleSubmit(event) {
   const submitButton = document.getElementById('submitButton');
   const submitErrorAlert = document.getElementById('submitErrorAlert');
 
+  if (submitButton?.disabled) {
+    return;
+  }
+
   if (submitErrorAlert) {
     submitErrorAlert.hidden = true;
   }
@@ -419,9 +425,15 @@ async function handleSubmit(event) {
     submitButton.disabled = true;
   }
 
+  let formData;
   try {
-    const formData = new FormData(form);
-    const response = await fetch(FORMSPREE_TALADRO_ENDPOINT, {
+    formData = new FormData(form);
+    for (const criterionId of CRITERION_IDS) {
+      const option = getSelectedCriterionOption(criterionId);
+      formData.set(option.name, SUBMITTED_RESULTS[option.value]);
+    }
+
+    const response = await fetch(form.action, {
       method: 'POST',
       body: formData,
       headers: {
@@ -432,9 +444,7 @@ async function handleSubmit(event) {
     if (!response.ok) {
       throw new Error('formspree-error');
     }
-
-    showSuccessConfirmation();
-  } catch (error) {
+  } catch {
     if (submitErrorAlert) {
       submitErrorAlert.hidden = false;
       submitErrorAlert.focus?.();
@@ -443,26 +453,27 @@ async function handleSubmit(event) {
     if (submitButton) {
       submitButton.disabled = false;
     }
+    return;
   }
+
+  showSuccessConfirmation(form, formData.get('inspection_id'));
 }
 
-function showSuccessConfirmation() {
-  const form = document.getElementById('mainForm');
+function showSuccessConfirmation(form, inspectionId) {
+  form.hidden = true;
+
+  try {
+    sessionStorage.setItem(CONFIRMED_INSPECTION_KEY, inspectionId);
+    window.location.replace('thanks/index.html');
+    return;
+  } catch {
+    // El envío ya fue aceptado. Si falla la transición, mostrar la confirmación aquí.
+  }
+
   const successPanel = document.getElementById('successPanel');
-  const successId = document.getElementById('successInspectionId');
-  const inspectionIdField = document.getElementById('inspection_id');
-
-  if (form) {
-    form.hidden = true;
-  }
-
-  if (successId && inspectionIdField) {
-    successId.textContent = inspectionIdField.value;
-  }
-
-  if (successPanel) {
-    successPanel.classList.remove('d-none');
-    successPanel.focus();
-    successPanel.scrollIntoView({ block: 'start' });
-  }
+  document.getElementById('successInspectionId').textContent = inspectionId;
+  document.getElementById('inspectionSection').setAttribute('aria-labelledby', 'successTitle');
+  successPanel.classList.remove('d-none');
+  successPanel.focus({ preventScroll: true });
+  successPanel.scrollIntoView({ block: 'start' });
 }
