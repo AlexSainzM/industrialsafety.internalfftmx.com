@@ -1,0 +1,133 @@
+/* FFT México — Printing File Template | Template Version: 1.0.0
+   TEMPLATE CORE — preserve in individual documents. */
+:root {
+  color-scheme: light;
+  --fft-green: #009d80;
+  --fft-green-dark: #006b57;
+  --fft-gray: #575756;
+  --fft-rule: #d0d0d0;
+  --fft-text: #333;
+  --fft-surface: #fff;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  padding: 32px 20px 48px;
+  background: #eef2f1;
+  color: var(--fft-text);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  overflow-wrap: anywhere;
+}
+p, h1, h2, dl, dd { margin: 0; }
+a { color: var(--fft-green-dark); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--fft-green-dark);
+  outline-offset: 4px;
+}
+.toolbar {
+  max-width: 216mm;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+.return-link { display: inline-block; padding: 10px 0; text-underline-offset: 4px; font-weight: 600; }
+.print-button {
+  padding: 12px 20px;
+  border: 1px solid var(--fft-green-dark);
+  border-radius: 6px;
+  background: var(--fft-green-dark);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.print-button:hover { background: #005443; }
+.print-button:disabled { cursor: wait; opacity: .7; }
+.print-help, .print-status { flex-basis: 100%; color: var(--fft-gray); font-size: .85rem; }
+.print-status:empty { display: none; }
+.document {
+  max-width: 216mm;
+  margin: 0 auto;
+  padding: 15mm;
+  background: var(--fft-surface);
+  border-top: 5px solid var(--fft-green);
+  box-shadow: 0 6px 30px #203b3010;
+}
+.document-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--fft-rule); }
+.brand { flex: 0 0 auto; }
+.brand-logo { display: block; width: 105px; max-width: 100%; height: auto; }
+.brand-name { font-size: 13px; font-weight: 700; margin-top: 6px; }
+.issuer { max-width: 55%; text-align: right; }
+.label, .metadata dt { color: var(--fft-gray); font-size: 12px; font-weight: 600; }
+.label { margin-bottom: 6px; }
+.document-heading { margin: 28px 0 24px; }
+.eyebrow { color: var(--fft-green-dark); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+h1 { font-size: 28px; line-height: 1.2; letter-spacing: -.02em; }
+h2 { font-size: 16px; line-height: 1.4; margin-bottom: 12px; }
+.document-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-bottom: 24px; margin-bottom: 28px; border-bottom: 1px solid var(--fft-rule); }
+.metadata { min-width: 0; }
+.metadata > div { display: grid; grid-template-columns: 60px minmax(0, 1fr); gap: 12px; margin-bottom: 6px; }
+.metadata dd { text-align: right; font-variant-numeric: tabular-nums; }
+.preserve-lines { white-space: pre-line; }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; min-width: 440px; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
+caption { text-align: left; color: var(--fft-gray); font-size: 12px; padding: 0 0 12px; }
+.concept-column { width: 28%; }
+.quantity-column { width: 18%; }
+th, td { text-align: left; vertical-align: top; padding: 12px 10px; border-bottom: 1px solid var(--fft-rule); overflow-wrap: anywhere; }
+thead th { background: #f5f5f5; border-top: 1px solid var(--fft-rule); font-weight: 700; }
+tbody th { font-weight: 600; }
+.quantity { text-align: right; font-variant-numeric: tabular-nums; }
+.notes { margin-top: 28px; }
+.notes p { font-size: 13px; }
+.document-footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--fft-rule); color: var(--fft-gray); font-size: 11px; }
+.document-footer strong { display: block; margin-bottom: 4px; }
+@media screen and (max-width: 600px) {
+  body { padding: 16px 12px 24px; }
+  .document { padding: 24px 18px; }
+  .toolbar { gap: 8px; }
+  .print-button { width: 100%; }
+  .document-header { align-items: flex-start; gap: 16px; }
+  .brand-logo { width: 85px; }
+  .document-summary { grid-template-columns: 1fr; gap: 20px; }
+  .metadata dd { text-align: left; }
+  h1 { font-size: 25px; }
+}
+@page { size: letter portrait; margin: 15mm; }
+@media print {
+  body { padding: 0; background: #fff; color: #222; font-size: 10pt; }
+  .screen-only { display: none !important; }
+  .document { max-width: none; width: auto; margin: 0; padding: 0; border-top: 2pt solid #575756; box-shadow: none; }
+  .document-header { padding: 5mm 0; }
+  .brand-logo { width: 28mm; }
+  .brand-name { font-size: 9pt; }
+  .document-heading { margin: 6mm 0; }
+  h1 { font-size: 22pt; }
+  h2 { font-size: 12pt; break-after: avoid; page-break-after: avoid; }
+  .eyebrow, .label, .metadata dt { color: #444; font-size: 9pt; }
+  .document-summary { display: block; margin-bottom: 6mm; padding-bottom: 5mm; }
+  .recipient { margin-bottom: 4mm; }
+  .metadata > div { grid-template-columns: 22mm minmax(0, 1fr); }
+  .metadata dd { text-align: left; }
+  .table-scroll { overflow: visible; }
+  table { min-width: 0; width: 100%; font-size: 9pt; }
+  caption { font-size: 9pt; }
+  thead { display: table-header-group; }
+  tfoot { display: table-row-group; }
+  th, td { padding: 3mm 2mm; border-color: #aaa; }
+  tr { break-inside: avoid; page-break-inside: avoid; }
+  .document-header, .document-heading, .recipient, .metadata > div, .document-footer {
+    break-inside: avoid; page-break-inside: avoid;
+  }
+  .document-heading { break-after: avoid; }
+  p { orphans: 3; widows: 3; }
+  .notes { margin-top: 6mm; }
+  .notes p { font-size: 10pt; }
+  .document-footer { margin-top: 8mm; font-size: 8pt; }
+}
+/* DOCUMENT-SPECIFIC CONTENT — optional instance styles go below.
+   Prefer the existing classes. Keep long blocks in normal document flow. */

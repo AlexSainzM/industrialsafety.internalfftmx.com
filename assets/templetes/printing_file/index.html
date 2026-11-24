@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <!-- FFT México — Printing File Template | Template Version: 1.0.0
+       Copy before use. Read README.md. Preserve TEMPLATE CORE in individual documents.
+       Replace every configuration marker; edit document content in designated areas. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="fft-template-version" content="printing_file/1.0.0">
+  <!-- TEMPLATE CONFIGURATION -->
+  <title>{{DOCUMENT_TITLE}} | FFT México</title>
+  <meta name="description" content="{{DOCUMENT_META_DESCRIPTION}}">
+  <!-- TEMPLATE CORE — no remote dependencies -->
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <!-- TEMPLATE CORE — screen-only controls; native browser printing also works -->
+  <div class="screen-only toolbar">
+    <nav aria-label="Navegación del documento">
+      <!-- TEMPLATE CONFIGURATION -->
+      <a class="return-link" href="{{RETURN_URL}}">← {{RETURN_LABEL}}</a>
+    </nav>
+    <button id="printButton" class="print-button" type="button" hidden aria-describedby="printHelp">
+      Imprimir / Guardar como PDF
+    </button>
+    <p id="printHelp" class="print-help">Selecciona el destino y el tamaño de papel en el diálogo de impresión.</p>
+    <p id="printStatus" class="print-status" role="status"></p>
+    <noscript><p>Para imprimir o guardar como PDF, utiliza la opción Imprimir del navegador.</p></noscript>
+  </div>
+
+  <main class="document" aria-labelledby="documentTitle">
+    <!-- TEMPLATE CORE -->
+    <header class="document-header">
+      <div class="brand">
+        <!-- TEMPLATE CONFIGURATION — resolve from the destination folder -->
+        <img id="documentLogo" class="brand-logo" src="{{LOGO_SRC}}" alt="Logo de FFT México">
+        <!-- TEMPLATE CORE — remains readable even if the image fails -->
+        <p class="brand-name">FFT México</p>
+      </div>
+      <div class="issuer">
+        <p class="label">Área emisora</p>
+        <!-- TEMPLATE CONFIGURATION -->
+        <p class="preserve-lines">{{ISSUER_AREA}}</p>
+      </div>
+    </header>
+
+    <!-- TEMPLATE CONFIGURATION -->
+    <div class="document-heading">
+      <p class="eyebrow">{{DOCUMENT_TYPE}}</p>
+      <h1 id="documentTitle">{{DOCUMENT_TITLE}}</h1>
+    </div>
+    <div class="document-summary">
+      <!-- Optional recipient: remove this whole section when not applicable. -->
+      <section class="recipient" aria-labelledby="recipientLabel">
+        <h2 id="recipientLabel" class="label">{{RECIPIENT_LABEL}}</h2>
+        <p class="preserve-lines">{{RECIPIENT_NAME}}</p>
+      </section>
+      <dl class="metadata">
+        <!-- Optional metadata: remove the complete div, including dt and dd. -->
+        <div><dt>Folio</dt><dd>{{DOCUMENT_REFERENCE}}</dd></div>
+        <div><dt>Fecha</dt><dd>{{DOCUMENT_DATE}}</dd></div>
+      </dl>
+    </div>
+
+    <!-- DOCUMENT-SPECIFIC CONTENT — adapt sections, columns, rows and notes here.
+         Examples are fictitious. Remove example text in an actual document.
+         For an applicable empty detail use one row with colspan="3" and
+         "Sin información de detalle". Update colspan when columns change. -->
+    <section class="detail" aria-labelledby="detailTitle">
+      <!-- TEMPLATE CONFIGURATION -->
+      <h2 id="detailTitle">{{DETAIL_TITLE}}</h2>
+      <!-- DOCUMENT-SPECIFIC CONTENT -->
+      <div class="table-scroll" role="region" aria-labelledby="detailTitle" tabindex="0">
+        <table>
+          <caption>Datos ficticios de ejemplo. Sustituir al crear un documento.</caption>
+          <colgroup><col class="concept-column"><col><col class="quantity-column"></colgroup>
+          <thead><tr><th scope="col">Concepto</th><th scope="col">Descripción</th><th scope="col" class="quantity">Cantidad</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Concepto de ejemplo</th><td class="preserve-lines">Descripción ficticia para mostrar la estructura del documento.</td><td class="quantity">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <!-- Optional notes: remove this entire section when not applicable.
+         Keep long notes in normal flow; do not force them onto a single page. -->
+    <section class="notes" aria-labelledby="notesTitle">
+      <h2 id="notesTitle">Notas</h2>
+      <p class="preserve-lines">Documento de ejemplo con datos ficticios, sin validez operativa.</p>
+    </section>
+    <!-- END DOCUMENT-SPECIFIC CONTENT -->
+
+    <!-- TEMPLATE CORE — flowing footer, never fixed over printed content -->
+    <footer class="document-footer">
+      <strong>FFT México</strong>
+      <!-- TEMPLATE CONFIGURATION -->
+      <p>{{FOOTER_DESCRIPTION}}</p>
+    </footer>
+  </main>
+</body>
+</html>
