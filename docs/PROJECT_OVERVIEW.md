@@ -117,7 +117,7 @@ No debe introducirse un framework frontend si no existe una necesidad claramente
 
 ## 4.4 Formspree como persistencia inicial
 
-Cada checklist tendrá su propio endpoint de Formspree.
+Todos los formularios de inspección enviarán sus registros a Formspree. Cada formulario tendrá su propio endpoint.
 
 Ejemplo conceptual:
 
@@ -135,9 +135,9 @@ Extensión eléctrica
 Formspree endpoint C
 ```
 
-La existencia de endpoints separados NO debe provocar contratos de datos completamente diferentes.
+Todos los formularios deben solicitar y enviar **Nombre del trabajador**, **Proyecto** y **Área / Ubicación** como campos obligatorios, siguiendo el formulario de Taladro Eléctrico.
 
-Los formularios deben conservar un conjunto común de conceptos definido en `INSPECTION_MODEL.md`.
+El valor enviado por cada criterio respondido debe ser `Cumple`, `No cumple` o `No aplica`. Las claves de los campos comunes y la correspondencia de los resultados se detallan en el [modelo de inspección](INSPECTION_MODEL.md).
 
 ---
 
@@ -215,6 +215,8 @@ En V1, `Inspector` y `Revisor` son **casos de uso**, no roles de autenticación.
 
 # 6. Alcance de V1
 
+Los formularios de V1 aplican los requisitos de campos obligatorios y valores de envío a Formspree de la sección 4.4.
+
 La V1 DEBE incluir:
 
 * catálogo de inspecciones disponibles;
@@ -222,9 +224,6 @@ La V1 DEBE incluir:
 * reutilización de la plantilla visual existente;
 * identificación de equipo o elemento;
 * respuestas normalizadas;
-* soporte para `Cumple`;
-* soporte para `No cumple`;
-* soporte para `No aplica`;
 * evidencia obligatoria cuando exista un `No cumple`;
 * observaciones cuando corresponda;
 * envío a Formspree;
@@ -271,13 +270,9 @@ Los formularios deben conservar, cuando corresponda, datos como:
 * diámetro;
 * capacidad;
 * WLL;
-* fecha de fabricación;
-* ubicación;
-* proyecto;
-* nave;
-* área.
+* fecha de fabricación.
 
-Los campos exactos dependen del formulario.
+Los campos de identificación del elemento dependen del formulario y se añaden a los datos generales comunes.
 
 Estos valores serán capturados manualmente en V1.
 

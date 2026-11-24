@@ -23,7 +23,7 @@ Su propósito es evitar que cada formulario implemente de manera independiente c
 * criterio bloqueante;
 * elemento inspeccionado.
 
-Este documento describe el **dominio**, no la estructura exacta enviada a Formspree.
+Este documento define el **dominio** y las reglas comunes de envío a Formspree. Cada Spec detalla los parámetros particulares de su formulario.
 
 ---
 
@@ -159,22 +159,24 @@ No todos los campos aplican a todos los formularios.
 
 # 7. Contexto de inspección
 
-Los formularios podrán solicitar información contextual como:
+Todos los formularios deben solicitar y enviar los tres campos obligatorios del Taladro Eléctrico.
+
+| Campo visible | Campo del modelo | Parámetro de Formspree |
+|---|---|---|
+| Nombre del trabajador | `worker` | `worker_name` |
+| Proyecto | `project` | `project` |
+| Área / Ubicación | `location` | `location` |
+
+Según la inspección, se podrán solicitar datos de contexto adicionales como:
 
 ```text
-worker
-project
-area
-location
 building
 activity
 shift
 contractor
 ```
 
-La existencia exacta de estos campos se define en `FORM_LOGIC_MATRIX.md`.
-
-No deben agregarse campos únicamente para conseguir que todos los formularios sean idénticos.
+Los campos adicionales se definen en `FORM_LOGIC_MATRIX.md` y en la Spec correspondiente.
 
 ---
 
@@ -355,13 +357,7 @@ NON_COMPLIANT
 NOT_APPLICABLE
 ```
 
-La interfaz en español debe mostrarlos como:
-
-```text
-Cumple
-No cumple
-No aplica
-```
+La interfaz muestra `Cumple`, `No cumple` y `No aplica`. Los valores enviados a Formspree se detallan en la [sección 41](#41-valores-enviados-a-formspree).
 
 ---
 
@@ -380,13 +376,7 @@ SI
 NO
 ```
 
-El transporte puede conservar algún valor adicional si fuera necesario, pero el dominio debe trabajar con:
-
-```text
-COMPLIANT
-NON_COMPLIANT
-NOT_APPLICABLE
-```
+El dominio usa los códigos de la sección 17 y el envío a Formspree utiliza los valores de la sección 41.
 
 ---
 
@@ -809,9 +799,9 @@ No debe reescribirse retrospectivamente el significado de submissions antiguas.
 
 ---
 
-# 38. Contrato común vs campos particulares
+# 38. Campos comunes y campos particulares
 
-Todos los formularios comparten conceptos, pero no necesariamente los mismos campos.
+Cada formulario incluye los datos generales de la sección 7 y puede capturar datos particulares del elemento inspeccionado.
 
 Ejemplo:
 
@@ -852,7 +842,7 @@ No se debe crear un formulario universal que muestre todos esos campos.
 
 # 39. Transporte a Formspree
 
-El modelo conceptual puede requerir adaptación a los campos que soporte Formspree.
+Cada formulario envía las inspecciones a su propio endpoint de Formspree. El envío incluye los campos generales de la sección 7 y el valor en español de cada criterio respondido según la sección 41.
 
 El flujo debe entenderse como:
 
@@ -898,27 +888,17 @@ La convención exacta podrá definirse en una Spec o documento técnico posterio
 
 ---
 
-# 41. Valores almacenados
+# 41. Valores enviados a Formspree
 
-Cuando sea posible, deben almacenarse valores técnicos estables.
+El valor del parámetro de cada criterio respondido debe coincidir exactamente con el texto de la opción seleccionada, incluidas las mayúsculas, minúsculas y los espacios.
 
-Ejemplo:
+| Resultado interno | Valor enviado a Formspree |
+|---|---|
+| `COMPLIANT` | `Cumple` |
+| `NON_COMPLIANT` | `No cumple` |
+| `NOT_APPLICABLE` | `No aplica` |
 
-```text
-COMPLIANT
-NON_COMPLIANT
-NOT_APPLICABLE
-```
-
-y no depender únicamente de los labels de interfaz:
-
-```text
-Cumple
-No cumple
-No aplica
-```
-
-Esto permite cambiar el idioma o wording de la interfaz sin alterar el significado histórico del dato.
+Por ejemplo, una respuesta de **No cumple** para el criterio de la broca se envía con el parámetro `taladro_condicion_broca` y el valor `No cumple`.
 
 ---
 
@@ -977,13 +957,15 @@ Cada formulario utiliza un endpoint de Formspree independiente.
 
 ### INV-03
 
-Todos los resultados utilizan:
+Todos los resultados del dominio utilizan:
 
 ```text
 COMPLIANT
 NON_COMPLIANT
 NOT_APPLICABLE
 ```
+
+Los resultados enviados a Formspree usan los valores literales de la sección 41.
 
 ### INV-04
 
@@ -1036,6 +1018,9 @@ Inspection
 │
 ├── worker
 │   └── Juan Pérez
+│
+├── project
+│   └── Proyecto A
 │
 ├── location
 │   └── Nave 2

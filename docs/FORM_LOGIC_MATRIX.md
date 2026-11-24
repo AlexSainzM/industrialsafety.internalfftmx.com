@@ -31,11 +31,15 @@ Cada formulario conserva su código documental y revisión oficial.
 
 ### 2.2 Resultado común
 
-Salvo que una futura decisión formal indique lo contrario, los criterios evaluables utilizan:
+Por cada criterio respondido, el parámetro enviado a Formspree debe contener el valor literal en español correspondiente a la opción seleccionada.
 
-- `COMPLIANT` — Cumple
-- `NON_COMPLIANT` — No cumple
-- `NOT_APPLICABLE` — No aplica
+| Valor enviado a Formspree | Código interno |
+|---|---|
+| `Cumple` | `COMPLIANT` |
+| `No cumple` | `NON_COMPLIANT` |
+| `No aplica` | `NOT_APPLICABLE` |
+
+El valor enviado debe conservar las mayúsculas, minúsculas y espacios de la tabla.
 
 ### 2.3 Evidencia
 
@@ -54,6 +58,10 @@ Aunque V1 no tenga catálogo centralizado de activos, se conservan los datos de 
 Las cuadrículas por días, semanas o múltiples fechas del documento físico no deben reproducirse como matriz digital. Cada submission representa una inspección realizada en un momento determinado.
 
 Los conceptos de **turno** que aparezcan en documentos oficiales deben tratarse como dato de contexto solamente si Seguridad Industrial confirma que siguen siendo necesarios en V1.
+
+### 2.7 Datos generales comunes
+
+Todos los formularios deben solicitar **Nombre del trabajador**, **Proyecto** y **Área / Ubicación** como campos obligatorios, siguiendo el formulario de Taladro Eléctrico. Cada formulario puede incluir los datos adicionales que requiera su inspección.
 
 ---
 
@@ -1233,14 +1241,10 @@ Un formulario puede considerarse listo para una Spec de implementación cuando:
 - cuenta con endpoint/placeholder de Formspree definido por la Spec;
 - no contradice `PROJECT_OVERVIEW.md` ni `INSPECTION_MODEL.md`.
 
+La Spec debe incluir los campos generales obligatorios de la sección 2.7 y el envío de resultados a Formspree según la sección 2.2.
+
 ---
 
 # 22. Próxima iteración recomendada
 
-Preparar una Spec ejecutable para `02040p54 — Taladro Eléctrico` como primera validación del modelo `SINGLE_EQUIPMENT`.
-
-La implementación inicial debería centrarse en:
-
-`Catálogo mínimo → Taladro → validación → evidencia en NON_COMPLIANT → payload → Formspree`
-
-La consulta de submissions, autenticación, administración de activos y criterios bloqueantes pueden permanecer fuera de esa primera iteración.
+La siguiente Spec del Taladro Eléctrico definirá la actualización del envío a Formspree conforme a las secciones 2.2 y 2.7. La primera implementación se documenta en la [Spec 001](specs/001-form-taladroElectrico.md).
