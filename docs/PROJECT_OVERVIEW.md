@@ -4,7 +4,7 @@
 
 **Estado:** Draft
 **Versión:** 0.2
-**Fecha:** 2026-11-24
+**Fecha:** 2026-11-25
 
 ---
 
@@ -52,7 +52,7 @@ Por lo tanto:
 
 > Una submission digital representa una inspección concreta realizada en un momento determinado.
 
-La fecha y hora del evento reemplazan la necesidad de conservar columnas físicas correspondientes a días o semanas.
+La fecha y hora del evento reemplazan la necesidad de conservar columnas físicas correspondientes a días o semanas. El campo Semana de los formatos físicos no se solicita en ningún formulario. [Spec 004](specs/004-form-extensionElectrica.md)
 
 ---
 

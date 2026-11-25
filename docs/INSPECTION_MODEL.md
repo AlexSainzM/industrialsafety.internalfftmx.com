@@ -4,7 +4,7 @@
 
 **Estado:** Draft
 **Versión:** 0.2
-**Fecha:** 2026-11-24
+**Fecha:** 2026-11-25
 
 ---
 
@@ -66,6 +66,8 @@ inspectionTimestamp
 ```
 
 La implementación debe permitir reconstruir posteriormente cuándo ocurrió la inspección.
+
+El campo Semana de los formatos físicos no forma parte de la captura de ningún formulario. [Spec 004](specs/004-form-extensionElectrica.md)
 
 ---
 

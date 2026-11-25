@@ -4,7 +4,7 @@
 
 **Estado:** Draft  
 **Versión:** 0.2
-**Fecha:** 2026-11-24
+**Fecha:** 2026-11-25
 
 ---
 
@@ -56,6 +56,8 @@ Aunque V1 no tenga catálogo centralizado de activos, se conservan los datos de 
 ### 2.6 Tiempo
 
 Las cuadrículas por días, semanas o múltiples fechas del documento físico no deben reproducirse como matriz digital. Cada submission representa una inspección realizada en un momento determinado.
+
+El campo **Semana** de los formatos físicos no se solicita en ningún formulario digital de V1. La fecha y hora de la inspección lo sustituyen. [Spec 004](specs/004-form-extensionElectrica.md)
 
 Los conceptos de **turno** que aparezcan en documentos oficiales deben tratarse como dato de contexto solamente si Seguridad Industrial confirma que siguen siendo necesarios en V1.
 
@@ -418,19 +420,21 @@ Una extensión eléctrica específica.
 
 La fila 7 corresponde a firma del trabajador.
 
-## Comportamiento digital propuesto
+## Comportamiento digital
 
-Formulario estándar de equipo individual.
+Definido en la [Spec 004](specs/004-form-extensionElectrica.md).
 
-La UI debe utilizar estados `Cumple / No cumple / No aplica` para evitar que el contrato dependa de la mezcla de redacciones positivas y negativas del documento.
+La captura sigue al Taladro Eléctrico: primero Nombre del trabajador, Proyecto y Área / Ubicación; después Modelo y Número económico. «Nave y ubicación» se registra en Área / Ubicación. Semana no se solicita. La firma queda fuera de alcance. La referencia visual usa un placeholder hasta que exista la imagen.
+
+Los criterios 1 a 4 conservan la redacción de esta sección y se responden con `Cumple`, `No cumple` o `No aplica`. No se reescriben en positivo. Los criterios 5 y 6 se responden y se envían como `Sí` o `No`.
 
 ## Evidencia
 
-Obligatoria por criterio `NON_COMPLIANT`.
+Obligatoria por cada `No cumple` de los criterios 1 a 4. Las respuestas `Sí` y `No` de los criterios 5 y 6 no piden evidencia.
 
-## Punto que requiere validación
+## Decisión de redacción
 
-Los criterios 1 y 2 están redactados como existencia de daño, mientras que la leyenda del formato habla de buen/mal estado. No se debe invertir automáticamente el significado sin documentarlo. La transformación final del wording debe quedar aprobada en la Spec del formulario.
+Los criterios 1 y 2 siguen redactados como existencia de daño. La spec conserva ese texto y no lo invierte. El endpoint de Formspree de este formulario queda definido en la Spec 004.
 
 ---
 
@@ -1179,7 +1183,7 @@ No se identifica en la fuente una dependencia condicional explícita entre los d
 
 ## 19.1 No replicar semanas/días
 
-Las matrices de semanas y días pertenecen al soporte papel. V1 registra una inspección por submission y conserva su fecha/hora.
+Las matrices de semanas y días pertenecen al soporte papel. V1 registra una inspección por submission y conserva su fecha/hora. El campo Semana no se solicita en ningún formulario.
 
 ## 19.2 No usar el número de fila como único ID
 
@@ -1222,7 +1226,7 @@ Los campos de identificación se capturan manualmente en V1. Su futura sustituci
 | P-06 | Confirmar inspección individual vs captura masiva | EPP | Pendiente Seguridad Industrial |
 | P-07 | Definir identificador discriminante del rack | Racks | Pendiente de diseño/validación |
 | P-08 | Validar obligatoriedad de marca/serie/fecha de fabricación | Protección contra Caídas | Pendiente Seguridad Industrial |
-| P-09 | Validar wording digital de criterios redactados como presencia de daño | Extensión, Eslingas y otros criterios negativos | Pendiente por formulario |
+| P-09 | Validar wording digital de criterios redactados como presencia de daño | Eslingas y otros criterios negativos. Extensión eléctrica conserva el texto de la fuente, según la [Spec 004](specs/004-form-extensionElectrica.md) | Pendiente fuera de Extensión Eléctrica |
 | P-10 | Confirmar lista de trabajadores en inspección de área | Orden y Limpieza | Pendiente Seguridad Industrial |
 
 ---
