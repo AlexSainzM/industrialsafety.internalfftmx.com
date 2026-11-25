@@ -3,8 +3,8 @@
 ## PROJECT_OVERVIEW
 
 **Estado:** Draft
-**Versión:** 0.1
-**Fecha:** 2026-08-25
+**Versión:** 0.2
+**Fecha:** 2026-11-24
 
 ---
 
@@ -60,14 +60,14 @@ La fecha y hora del evento reemplazan la necesidad de conservar columnas física
 
 Digitalizar los checklists de Seguridad Industrial de FFT México mediante una aplicación web que permita:
 
-1. consultar las inspecciones disponibles;
-2. seleccionar la inspección requerida;
-3. registrar las condiciones encontradas;
+1. iniciar sesión en el catálogo con el perfil de inspector del piloto;
+2. consultar y seleccionar una inspección disponible;
+3. registrar las condiciones encontradas con el nombre del inspector precargado;
 4. adjuntar evidencia cuando exista una no conformidad;
 5. enviar cada inspección al endpoint correspondiente de Formspree;
-6. consultar posteriormente los registros mediante la API de solo lectura de Formspree.
+6. consultar posteriormente los registros desde Notion, fuera del sitio de captura.
 
-La primera versión debe priorizar la **funcionalidad del proceso de inspección** antes que la administración de usuarios, autenticación, permisos o administración centralizada de activos.
+La [Spec 003](specs/003-UsersManagement.md) define la sesión local para el grupo inicial de inspectores.
 
 ---
 
@@ -135,7 +135,7 @@ Extensión eléctrica
 Formspree endpoint C
 ```
 
-Todos los formularios deben solicitar y enviar **Nombre del trabajador**, **Proyecto** y **Área / Ubicación** como campos obligatorios, siguiendo el formulario de Taladro Eléctrico.
+Todos los formularios deben enviar **Nombre del trabajador**, **Proyecto** y **Área / Ubicación** como campos obligatorios. El nombre completo viene de la sesión y aparece en un campo de solo lectura. Proyecto y Área / Ubicación se capturan en cada inspección.
 
 El valor enviado por cada criterio respondido debe ser `Cumple`, `No cumple` o `No aplica`. Las claves de los campos comunes y la correspondencia de los resultados se detallan en el [modelo de inspección](INSPECTION_MODEL.md).
 
@@ -165,13 +165,13 @@ La aplicación frontend NO DEBE contener:
 
 * API keys privadas;
 * tokens administrativos;
-* credenciales;
+* contraseñas corporativas o reutilizadas en otros servicios;
 * secretos de Formspree;
 * credenciales de servicios futuros.
 
-La consulta mediante la API de lectura de Formspree deberá implementarse únicamente de una forma compatible con esta restricción.
+El piloto define sus usuarios, nombres y claves en `data/users.json`. El navegador descarga ese archivo y valida el acceso localmente. Cualquiera que pueda abrir el sitio puede leer el archivo, por lo que las claves deben ser exclusivas del piloto. La sesión sirve para precargar el nombre en la interfaz. El frontend carece de verificación de identidad y permisos del lado del servidor.
 
-Si una funcionalidad requiere exponer un secreto en el navegador, deberá considerarse incompatible con la arquitectura frontend-only y deberá documentarse antes de implementarse.
+La captura usa Formspree y la revisión se realiza en Notion. El sitio estático prescinde de credenciales de ambos servicios.
 
 ---
 
@@ -185,9 +185,10 @@ Persona que realiza una inspección antes o durante la utilización de una herra
 
 Puede:
 
+* iniciar y cerrar sesión desde el catálogo;
 * visualizar inspecciones disponibles;
 * seleccionar una;
-* completar sus datos;
+* revisar el nombre precargado y completar los datos de la inspección;
 * identificar el elemento inspeccionado;
 * responder los criterios;
 * adjuntar evidencias;
@@ -197,7 +198,7 @@ Puede:
 
 ## 5.2 Revisor
 
-Persona que consulta inspecciones previamente registradas.
+Persona que consulta en Notion las inspecciones previamente registradas.
 
 Puede:
 
@@ -209,7 +210,7 @@ Puede:
 * identificar no conformidades;
 * consultar evidencias.
 
-En V1, `Inspector` y `Revisor` son **casos de uso**, no roles de autenticación.
+En V1, `Inspector` y `Revisor` describen casos de uso. La sesión local se usa para la captura.
 
 ---
 
@@ -219,6 +220,7 @@ Los formularios de V1 aplican los requisitos de campos obligatorios y valores de
 
 La V1 DEBE incluir:
 
+* inicio y cierre de sesión local para el piloto;
 * catálogo de inspecciones disponibles;
 * formularios individuales;
 * reutilización de la plantilla visual existente;
@@ -228,7 +230,6 @@ La V1 DEBE incluir:
 * observaciones cuando corresponda;
 * envío a Formspree;
 * un endpoint diferente de Formspree por formulario;
-* consulta de registros mediante la API de lectura de Formspree, siempre que pueda hacerse de forma segura;
 * conservación del documento/revisión que originó cada formulario digital.
 
 ---
@@ -237,8 +238,7 @@ La V1 DEBE incluir:
 
 No deben implementarse salvo que exista una Spec que modifique explícitamente este alcance:
 
-* cuentas de usuario;
-* inicio de sesión;
+* autenticación del lado del servidor y gestión centralizada de cuentas;
 * recuperación de contraseña;
 * roles y permisos;
 * administración de usuarios;
@@ -253,7 +253,8 @@ No deben implementarse salvo que exista una Spec que modifique explícitamente e
 * base de datos propia;
 * edición administrativa de submissions;
 * notificaciones automáticas;
-* dashboards analíticos avanzados.
+* dashboards analíticos avanzados;
+* visor de registros e integración con Notion desde el sitio de captura.
 
 ---
 
@@ -291,7 +292,7 @@ En versiones futuras podrán sustituirse parcialmente mediante:
 
 El usuario no debe acceder normalmente mediante enlaces directos proporcionados manualmente.
 
-Debe existir una página de entrada que muestre todos los formularios disponibles.
+La página de entrada habilita el catálogo después del inicio de sesión. Si alguien abre un formulario directamente sin una sesión activa, vuelve al catálogo para iniciar sesión.
 
 Conceptualmente:
 
@@ -483,7 +484,7 @@ Hasta que dicha clasificación exista:
 Existe una plantilla base del proyecto ubicada actualmente en:
 
 ```text
-assets/templates/form_v1/
+assets/templetes/form_v1/
 ├── index.html
 ├── main.js
 └── styles.css
@@ -505,6 +506,11 @@ Una implementación individual no debe alterar directamente la plantilla base si
 # 16. Arquitectura conceptual
 
 ```text
+                 ┌──────────────────────────┐
+                 │ Sesión del inspector     │
+                 └────────────┬─────────────┘
+                              │
+                              ▼
                  ┌──────────────────────────┐
                  │ Catálogo de inspecciones │
                  └────────────┬─────────────┘
@@ -536,7 +542,7 @@ Una implementación individual no debe alterar directamente la plantilla base si
                               │
                               ▼
                  ┌──────────────────────────┐
-                 │ Consulta / revisión      │
+                 │ Revisión en Notion       │
                  └──────────────────────────┘
 ```
 
@@ -577,7 +583,7 @@ Cuando un agente trabaje en el proyecto debe consultar, en este orden:
 2. docs/INSPECTION_MODEL.md
 3. docs/FORM_LOGIC_MATRIX.md
 4. Spec correspondiente
-5. assets/templates/form_v1/
+5. assets/templetes/form_v1/
 6. Código existente
 ```
 

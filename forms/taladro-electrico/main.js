@@ -1,6 +1,9 @@
 /**
  * Check List - Taladro Eléctrico (02040p54 Rev. 03)
  */
+import { getInspector } from '../../assets/js/inspector-session.js';
+
+const inspector = getInspector();
 const SUBMITTED_RESULTS = {
   COMPLIANT: 'Cumple',
   NON_COMPLIANT: 'No cumple',
@@ -21,7 +24,7 @@ const CRITERION_IDS = [
   'taladro_ruidos_motor'
 ];
 
-const GENERAL_FIELDS = ['worker_name', 'project', 'location', 'drill_model'];
+const GENERAL_FIELDS = ['project', 'location', 'drill_model'];
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeInspection();
@@ -30,10 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeInspection() {
   const form = document.getElementById('mainForm');
 
-  if (!form) {
+  if (!form || !requireInspector()) {
     return;
   }
 
+  const workerName = form.elements.namedItem('worker_name');
+  workerName.defaultValue = inspector.fullName;
+  workerName.value = inspector.fullName;
   initializeDynamicYear();
   setInspectionIdentity();
   calculateSummary();
@@ -56,6 +62,24 @@ function initializeInspection() {
   });
 
   form.addEventListener('submit', handleSubmit);
+
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted && !requireInspector()) {
+      form.hidden = true;
+    }
+  });
+
+  form.hidden = false;
+}
+
+function requireInspector() {
+  const current = getInspector();
+  if (inspector && current?.username === inspector.username && current.fullName === inspector.fullName) {
+    return true;
+  }
+
+  window.location.replace('../../index.html');
+  return false;
 }
 
 function initializeDynamicYear() {
@@ -396,9 +420,16 @@ async function handleSubmit(event) {
   const submitButton = document.getElementById('submitButton');
   const submitErrorAlert = document.getElementById('submitErrorAlert');
 
+  if (!requireInspector()) {
+    form.hidden = true;
+    return;
+  }
+
   if (submitButton?.disabled) {
     return;
   }
+
+  form.elements.namedItem('worker_name').value = inspector.fullName;
 
   if (submitErrorAlert) {
     submitErrorAlert.hidden = true;

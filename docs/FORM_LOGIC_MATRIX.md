@@ -3,8 +3,8 @@
 ## FORM_LOGIC_MATRIX
 
 **Estado:** Draft  
-**Versión:** 0.1  
-**Fecha:** 2026-08-25
+**Versión:** 0.2
+**Fecha:** 2026-11-24
 
 ---
 
@@ -17,7 +17,7 @@ Debe utilizarse junto con:
 - `docs/PROJECT_OVERVIEW.md`
 - `docs/INSPECTION_MODEL.md`
 - la Spec correspondiente a cada iteración
-- `assets/templates/form_v1/`
+- `assets/templetes/form_v1/`
 
 La prioridad es preservar la intención de cada formato oficial y hacer explícitas las decisiones digitales antes de implementar.
 
@@ -61,7 +61,7 @@ Los conceptos de **turno** que aparezcan en documentos oficiales deben tratarse 
 
 ### 2.7 Datos generales comunes
 
-Todos los formularios deben solicitar **Nombre del trabajador**, **Proyecto** y **Área / Ubicación** como campos obligatorios, siguiendo el formulario de Taladro Eléctrico. Cada formulario puede incluir los datos adicionales que requiera su inspección.
+Todos los formularios deben enviar **Nombre del trabajador**, **Proyecto** y **Área / Ubicación** como campos obligatorios. Taladro Eléctrico toma el nombre completo de la sesión local y lo muestra en modo de solo lectura. Los nuevos formularios siguen esta misma regla aunque el formato físico tenga un campo de nombre o firma. Proyecto, Área / Ubicación y los datos adicionales se capturan según cada inspección. [Spec 003](specs/003-UsersManagement.md)
 
 ---
 

@@ -3,8 +3,8 @@
 ## INSPECTION_MODEL
 
 **Estado:** Draft
-**Versión:** 0.1
-**Fecha:** 2026-08-25
+**Versión:** 0.2
+**Fecha:** 2026-11-24
 
 ---
 
@@ -159,13 +159,15 @@ No todos los campos aplican a todos los formularios.
 
 # 7. Contexto de inspección
 
-Todos los formularios deben solicitar y enviar los tres campos obligatorios del Taladro Eléctrico.
+Todos los formularios deben enviar los tres campos obligatorios del Taladro Eléctrico.
 
 | Campo visible | Campo del modelo | Parámetro de Formspree |
 |---|---|---|
 | Nombre del trabajador | `worker` | `worker_name` |
 | Proyecto | `project` | `project` |
 | Área / Ubicación | `location` | `location` |
+
+El formulario llena `worker_name` con el nombre completo de la sesión local y muestra el campo en modo de solo lectura. Una sesión activa aporta el nombre requerido para enviar la inspección. El inspector captura **Proyecto** y **Área / Ubicación** en cada envío. [Spec 003](specs/003-UsersManagement.md)
 
 Según la inspección, se podrán solicitar datos de contexto adicionales como:
 
