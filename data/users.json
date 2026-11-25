@@ -1,0 +1,24 @@
+[
+    {
+        "usuario": "Luis",
+        "clave": "H2akEZqF",
+        "nombre": "Luis Bocanegra",
+        "centrosCosto": [
+        54200, 54210, 54220, 54300, 54310, 54320, 54330, 54350,
+        54450, 54100, 54110, 54120, 54400, 54410, 54420,
+        54430, 54440, 54500, 54510, 54520
+        ]
+    },
+    {
+        "usuario": "Cristian",
+        "clave": "BgrYVk0e",
+        "nombre": "Cristian Peña Arevalo",
+        "centrosCosto": [54200]
+    },
+    {
+        "usuario": "Abraham",
+        "clave": "i5sPZtbn",
+        "nombre": "Abraham Gutierrez",
+        "centrosCosto": [54210]
+    }
+]
