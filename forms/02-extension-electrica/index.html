@@ -1,46 +1,26 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <!--
-    FFT México - Static Form Template
-    Template Version: 1.1.0
-
-    Responsibility areas:
-    TEMPLATE CORE — protected reusable infrastructure. Do not modify unless technically necessary.
-    TEMPLATE CONFIGURATION — values that MUST be customized for each implementation without changing the surrounding structure.
-    FORM-SPECIFIC CONTENT — questions and controls belonging to the individual form.
-
-    Replace every {{PLACEHOLDER_NAME}} marker before production.
-    A finished production form must contain ZERO unresolved {{...}} placeholders.
-  -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check List - Extensión Eléctrica | FFT México</title>
+  <meta name="description" content="Inspección de una extensión eléctrica específica antes de su utilización. Documento 02040p45, revisión 03.">
 
-  <!-- TEMPLATE CONFIGURATION -->
-  <title>{{FORM_TITLE}} | FFT México</title>
-  <meta name="description" content="{{FORM_META_DESCRIPTION}}">
-
-  <!-- =====================================================
-        TEMPLATE CORE — DO NOT MODIFY FOR INDIVIDUAL FORMS
-  ====================================================== -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
         crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../../assets/templetes/form_v1/styles.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!-- =====================================================
-       TEMPLATE CORE — DO NOT MODIFY FOR INDIVIDUAL FORMS
-  ====================================================== -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top px-3 px-md-5 fft-navbar">
       <div class="container-fluid">
-        <!-- These relative paths depend on the expected FFT internal-services deployment structure. -->
-        <a class="navbar-brand" href="#" aria-label="FFT México">
-          <img src="../../img/common/fft_logonormal_headers.webp"
+        <a class="navbar-brand" href="../../index.html" aria-label="FFT México">
+          <img src="../../assets/img/common/fft_logonormal_headers.webp"
                alt="FFT México"
                height="30"
                class="d-inline-block align-text-top">
@@ -57,10 +37,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <!-- TEMPLATE CONFIGURATION -->
-              <a class="nav-link" href="{{NAV_HREF}}">
-                <i class="bi {{NAV_ICON}} me-1" aria-hidden="true"></i>
-                {{NAV_LABEL}}
+              <a class="nav-link" href="../../index.html">
+                <i class="bi bi-arrow-left-circle me-1" aria-hidden="true"></i>
+                Volver al catálogo
               </a>
             </li>
           </ul>
@@ -68,16 +47,14 @@
       </div>
     </nav>
 
-    <div class="container pt-5 mt-5">
+    <div class="container pt-5 inspection-intro">
       <div class="row">
         <div class="col-lg-10 mx-auto">
-          <!-- TEMPLATE CONFIGURATION -->
-          <p class="fft-eyebrow mb-2">{{FORM_EYEBROW}}</p>
-          <h1 class="display-5 fw-bold mb-3">{{FORM_TITLE}}</h1>
-          <p class="lead mb-2">{{FORM_INTRODUCTION}}</p>
-          <p class="text-muted mb-4">{{FORM_INSTRUCTIONS}}</p>
+          <p class="fft-eyebrow mb-2">Documento 02040p45 · Revisión 03 · 13.10.2025</p>
+          <h1 class="display-5 fw-bold mb-3">Check List - Extensión Eléctrica</h1>
+          <p class="lead mb-2">Registra la inspección de una extensión eléctrica específica, realizada en este momento antes de su utilización.</p>
+          <p class="text-muted mb-4">Responde cada criterio, adjunta evidencia cuando marques No cumple y revisa el resumen antes de enviar.</p>
 
-          <!-- TEMPLATE CORE -->
           <div class="alert alert-warning border-0 shadow-sm fft-required-notice" role="note">
             <i class="bi bi-asterisk text-danger" aria-hidden="true"></i>
             Los campos marcados con <span class="required-indicator" aria-hidden="true">*</span> son obligatorios.
@@ -88,50 +65,369 @@
   </header>
 
   <main>
-    <section class="container py-5" aria-labelledby="formSectionTitle">
+    <section class="container py-5" id="inspectionSection" aria-labelledby="formSectionTitle">
       <div class="row mb-5">
         <div class="col-lg-10 mx-auto">
-          <!-- TEMPLATE CORE form shell. Customize only action={{FORMSPREE_ENDPOINT}}. -->
+          <section id="successPanel" class="success-panel d-none" tabindex="-1" aria-labelledby="successTitle">
+            <h2 id="successTitle" class="h3 mb-3">
+              <i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i>
+              Inspección registrada correctamente.
+            </h2>
+            <p class="mb-2">El registro se envió con el siguiente identificador:</p>
+            <p class="mb-4">
+              <span class="visually-hidden">Identificador de inspección:</span>
+              <span id="successInspectionId" class="inspection-id-value"></span>
+            </p>
+            <a class="btn btn-primary btn-lg" href="../../index.html">
+              <i class="bi bi-arrow-left-circle me-2" aria-hidden="true"></i>
+              Volver al catálogo
+            </a>
+          </section>
+
+          <noscript>
+            <p class="alert alert-warning">Activa JavaScript y vuelve al catálogo para iniciar sesión.</p>
+          </noscript>
+
           <form id="mainForm"
                 class="fft-form needs-validation"
-                action="{{FORMSPREE_ENDPOINT}}"
+                action="https://formspree.io/f/maeoagqk"
                 method="POST"
+                enctype="multipart/form-data"
+                hidden
                 novalidate>
-            <input type="hidden" name="_next" value="{{FORM_THANKS_URL}}">
+            <input type="hidden" name="form_id" value="02040p45">
+            <input type="hidden" name="form_revision" value="03">
+            <input type="hidden" name="form_slug" value="extension-electrica">
+            <input type="hidden" name="form_name" value="Check List - Extensión Eléctrica">
+            <input type="hidden" name="inspection_id" id="inspection_id" value="">
+            <input type="hidden" name="inspection_timestamp" id="inspection_timestamp" value="">
+
             <div class="form-section">
-              <!-- TEMPLATE CONFIGURATION -->
-              <h2 id="formSectionTitle" class="form-section-title">{{SECTION_TITLE}}</h2>
-              <p class="form-section-description">{{SECTION_DESCRIPTION}}</p>
+              <h2 id="formSectionTitle" class="form-section-title">Datos generales</h2>
+              <p class="form-section-description">Indica el proyecto y la ubicación de la inspección.</p>
 
-              <!-- =====================================================
-                   FORM-SPECIFIC CONTENT — EDIT FOR EACH IMPLEMENTATION
+              <div class="form-question">
+                <label for="worker_name" class="form-label">Nombre del trabajador</label>
+                <input type="text"
+                       class="form-control"
+                       id="worker_name"
+                       name="worker_name"
+                       autocomplete="off"
+                       readonly
+                       required
+                       aria-describedby="worker_name_help">
+                <div class="form-help" id="worker_name_help">Se completa con el nombre de tu sesión.</div>
+              </div>
 
-                   Insert all form questions in this single area.
+              <div class="form-question">
+                <label for="project" class="form-label">
+                  Proyecto <span class="required-indicator" aria-hidden="true">*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="project"
+                       name="project"
+                       required
+                       aria-describedby="project_error">
+                <div class="invalid-feedback" id="project_error">Ingresa el proyecto.</div>
+              </div>
 
-                   Field convention: pNN_short_description
-                   Examples: p01_nombre, p02_departamento
-                   Use lowercase snake_case without accents and a
-                   two-digit question number. Keep id and name equal
-                   whenever possible.
+              <div class="form-question">
+                <label for="location" class="form-label">
+                  Área / Ubicación <span class="required-indicator" aria-hidden="true">*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="location"
+                       name="location"
+                       required
+                       aria-describedby="location_error">
+                <div class="invalid-feedback" id="location_error">Ingresa el área o ubicación.</div>
+              </div>
+            </div>
 
-                   Conditional fields:
-                   - Hide inactive containers with Bootstrap's d-none.
-                   - Disable inactive controls so they cannot block native validation.
-                   - Fields required when active must use data-required="true".
-                   - Apply required only while a conditional section is active.
+            <div class="form-section">
+              <h2 class="form-section-title">Identificación de la extensión</h2>
+              <p class="form-section-description">Captura el modelo y el número económico de la extensión. La fecha y hora se registran automáticamente.</p>
 
-                   Grouped controls:
-                  - Radio options belonging to one question must share the same name.
-                  - Use unique IDs for each option.
-                  - Apply required to the first radio of a required group.
-                  - Validation feedback for a radio/checkbox group belongs to the group, not to an individual option.
-                  - Use fieldset + legend for grouped controls.
-              ====================================================== -->
+              <div class="form-question">
+                <label for="model" class="form-label">
+                  Modelo <span class="required-indicator" aria-hidden="true">*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="model"
+                       name="Modelo"
+                       required
+                       aria-describedby="model_error">
+                <div class="invalid-feedback" id="model_error">Ingresa el modelo de la extensión.</div>
+              </div>
 
-              <!-- TEMPLATE CORE -->
+              <div class="form-question">
+                <label for="economic_number" class="form-label">
+                  Número económico <span class="required-indicator" aria-hidden="true">*</span>
+                </label>
+                <input type="text"
+                       class="form-control"
+                       id="economic_number"
+                       name="Número económico"
+                       required
+                       aria-describedby="economic_number_error">
+                <div class="invalid-feedback" id="economic_number_error">Ingresa el número económico de la extensión.</div>
+              </div>
+
+              <p class="form-help mb-0">
+                Fecha y hora de la inspección:
+                <time id="inspectionTimestampDisplay">se registrará al enviar</time>
+              </p>
+            </div>
+
+            <div class="form-section">
+              <h2 class="form-section-title">Referencia visual del equipo</h2>
+              <figure class="reference-visual">
+                <img id="referenceImage"
+                     src="../../assets/img/forms/extension-electrica/extension-electrica-referencia.png"
+                     alt="Diagrama de referencia de una extensión eléctrica y sus componentes"
+                     hidden>
+                <figcaption id="referencePlaceholder" class="reference-placeholder">
+                  <i class="bi bi-image" aria-hidden="true"></i>
+                  Imagen de referencia pendiente
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="form-section">
+              <h2 class="form-section-title" id="criteriaHeading">Criterios de inspección</h2>
+              <p class="form-section-description">Responde los seis criterios. Si marcas No cumple, adjunta evidencia de ese criterio.</p>
+
+              <div class="criteria-list">
+                <fieldset class="criterion-block" data-criterion-id="extension_dano_cableado">
+                  <legend>
+                    <span data-criterion-label>01 - Existe daño en cableado y extensiones</span>
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options">
+                    <input type="radio" class="btn-check" name="01 - Existe daño en cableado y extensiones" id="extension_dano_cableado_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="extension_dano_cableado_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="01 - Existe daño en cableado y extensiones" id="extension_dano_cableado_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="extension_dano_cableado_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="01 - Existe daño en cableado y extensiones" id="extension_dano_cableado_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="extension_dano_cableado_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field" hidden>
+                    <label class="form-label" for="evidence_extension_dano_cableado">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_extension_dano_cableado"
+                           name="evidence_extension_dano_cableado"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           aria-describedby="evidence_help_extension_dano_cableado evidence_error_extension_dano_cableado">
+                    <div class="form-help" id="evidence_help_extension_dano_cableado">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_extension_dano_cableado">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_extension_dano_cableado">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_extension_dano_cableado" name="observation_extension_dano_cableado" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="extension_dano_conector">
+                  <legend>
+                    <span data-criterion-label>02 - Existe daño en conector o clavijas</span>
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options">
+                    <input type="radio" class="btn-check" name="02 - Existe daño en conector o clavijas" id="extension_dano_conector_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="extension_dano_conector_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="02 - Existe daño en conector o clavijas" id="extension_dano_conector_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="extension_dano_conector_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="02 - Existe daño en conector o clavijas" id="extension_dano_conector_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="extension_dano_conector_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field" hidden>
+                    <label class="form-label" for="evidence_extension_dano_conector">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_extension_dano_conector"
+                           name="evidence_extension_dano_conector"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           aria-describedby="evidence_help_extension_dano_conector evidence_error_extension_dano_conector">
+                    <div class="form-help" id="evidence_help_extension_dano_conector">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_extension_dano_conector">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_extension_dano_conector">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_extension_dano_conector" name="observation_extension_dano_conector" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="extension_puesta_tierra">
+                  <legend>
+                    <span data-criterion-label>03 - Asegurar que cuente con cable puesta a tierra</span>
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options">
+                    <input type="radio" class="btn-check" name="03 - Asegurar que cuente con cable puesta a tierra" id="extension_puesta_tierra_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="extension_puesta_tierra_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="03 - Asegurar que cuente con cable puesta a tierra" id="extension_puesta_tierra_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="extension_puesta_tierra_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="03 - Asegurar que cuente con cable puesta a tierra" id="extension_puesta_tierra_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="extension_puesta_tierra_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field" hidden>
+                    <label class="form-label" for="evidence_extension_puesta_tierra">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_extension_puesta_tierra"
+                           name="evidence_extension_puesta_tierra"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           aria-describedby="evidence_help_extension_puesta_tierra evidence_error_extension_puesta_tierra">
+                    <div class="form-help" id="evidence_help_extension_puesta_tierra">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_extension_puesta_tierra">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_extension_puesta_tierra">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_extension_puesta_tierra" name="observation_extension_puesta_tierra" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" data-criterion-id="extension_capacidad_cable">
+                  <legend>
+                    <span data-criterion-label>04 - Capacidad del cable de acuerdo a carga de energía</span>
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options">
+                    <input type="radio" class="btn-check" name="04 - Capacidad del cable de acuerdo a carga de energía" id="extension_capacidad_cable_COMPLIANT" value="COMPLIANT" required>
+                    <label class="btn btn-outline-success" for="extension_capacidad_cable_COMPLIANT">Cumple</label>
+                    <input type="radio" class="btn-check" name="04 - Capacidad del cable de acuerdo a carga de energía" id="extension_capacidad_cable_NON_COMPLIANT" value="NON_COMPLIANT">
+                    <label class="btn btn-outline-danger" for="extension_capacidad_cable_NON_COMPLIANT">No cumple</label>
+                    <input type="radio" class="btn-check" name="04 - Capacidad del cable de acuerdo a carga de energía" id="extension_capacidad_cable_NOT_APPLICABLE" value="NOT_APPLICABLE">
+                    <label class="btn btn-outline-secondary" for="extension_capacidad_cable_NOT_APPLICABLE">No aplica</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message>Selecciona Cumple, No cumple o No aplica.</div>
+                  <div class="conditional-field" hidden>
+                    <label class="form-label" for="evidence_extension_capacidad_cable">
+                      Evidencia de la condición encontrada <span class="required-indicator" aria-hidden="true">*</span>
+                    </label>
+                    <input type="file"
+                           class="form-control"
+                           id="evidence_extension_capacidad_cable"
+                           name="evidence_extension_capacidad_cable"
+                           accept="image/*,.pdf,application/pdf"
+                           disabled
+                           aria-describedby="evidence_help_extension_capacidad_cable evidence_error_extension_capacidad_cable">
+                    <div class="form-help" id="evidence_help_extension_capacidad_cable">Adjunta una fotografía o archivo de este criterio.</div>
+                    <div class="invalid-feedback" id="evidence_error_extension_capacidad_cable">Adjunta evidencia para el criterio marcado como No cumple.</div>
+                    <label class="form-label mt-3" for="observation_extension_capacidad_cable">Observación (opcional)</label>
+                    <textarea class="form-control" id="observation_extension_capacidad_cable" name="observation_extension_capacidad_cable" rows="2" disabled></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset class="criterion-block" id="extension_carrete" data-criterion-id="extension_carrete">
+                  <legend>
+                    <span data-criterion-label>05 - Es extensión de carrete</span>
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options criterion-options-binary">
+                    <input type="radio" class="btn-check" name="05 - Es extensión de carrete" id="extension_carrete_yes" value="Sí" required>
+                    <label class="btn btn-outline-secondary" for="extension_carrete_yes">Sí</label>
+                    <input type="radio" class="btn-check" name="05 - Es extensión de carrete" id="extension_carrete_no" value="No">
+                    <label class="btn btn-outline-secondary" for="extension_carrete_no">No</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message>Selecciona Sí o No.</div>
+                </fieldset>
+
+                <fieldset class="criterion-block" id="extension_gfci" data-criterion-id="extension_gfci">
+                  <legend>
+                    <span data-criterion-label>06 - Cuenta con GFCI</span>
+                    <span class="required-indicator" aria-hidden="true">*</span>
+                  </legend>
+                  <div class="criterion-options criterion-options-binary">
+                    <input type="radio" class="btn-check" name="06 - Cuenta con GFCI" id="extension_gfci_yes" value="Sí" required>
+                    <label class="btn btn-outline-secondary" for="extension_gfci_yes">Sí</label>
+                    <input type="radio" class="btn-check" name="06 - Cuenta con GFCI" id="extension_gfci_no" value="No">
+                    <label class="btn btn-outline-secondary" for="extension_gfci_no">No</label>
+                  </div>
+                  <div class="invalid-feedback" data-criterion-message>Selecciona Sí o No.</div>
+                </fieldset>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2 class="form-section-title">Resumen antes del envío</h2>
+              <p class="form-section-description">Revisa estos datos antes de registrar la inspección.</p>
+
+              <dl class="row mb-4">
+                <dt class="col-sm-4">Trabajador</dt>
+                <dd class="col-sm-8" id="summaryWorker">—</dd>
+                <dt class="col-sm-4">Proyecto</dt>
+                <dd class="col-sm-8" id="summaryProject">—</dd>
+                <dt class="col-sm-4">Ubicación</dt>
+                <dd class="col-sm-8" id="summaryLocation">—</dd>
+                <dt class="col-sm-4">Modelo</dt>
+                <dd class="col-sm-8" id="summaryModel">—</dd>
+                <dt class="col-sm-4">Número económico</dt>
+                <dd class="col-sm-8" id="summaryEconomicNumber">—</dd>
+                <dt class="col-sm-4">Fecha</dt>
+                <dd class="col-sm-8" id="summaryDate">—</dd>
+                <dt class="col-sm-4">Extensión de carrete</dt>
+                <dd class="col-sm-8" id="summaryReel">—</dd>
+                <dt class="col-sm-4">Cuenta con GFCI</dt>
+                <dd class="col-sm-8" id="summaryGfci">—</dd>
+              </dl>
+
+              <div class="summary-counts mb-4" aria-live="polite">
+                <div class="summary-count">
+                  <span class="summary-count-value" id="summaryTotal">6</span>
+                  <span class="summary-count-label">Criterios</span>
+                </div>
+                <div class="summary-count">
+                  <span class="summary-count-value" id="summaryCompliant">0</span>
+                  <span class="summary-count-label">Cumple</span>
+                </div>
+                <div class="summary-count">
+                  <span class="summary-count-value" id="summaryNonCompliant">0</span>
+                  <span class="summary-count-label">No cumple</span>
+                </div>
+                <div class="summary-count">
+                  <span class="summary-count-value" id="summaryNotApplicable">0</span>
+                  <span class="summary-count-label">No aplica</span>
+                </div>
+              </div>
+
+              <h3 class="h5">Criterios con No cumple</h3>
+              <p id="summaryNonCompliantEmpty" class="form-help">No hay no conformidades registradas.</p>
+              <ul id="summaryNonCompliantList" class="summary-nonconformities" hidden></ul>
+            </div>
+
+            <div class="form-section">
+              <h2 class="form-section-title">Validación y envío</h2>
+              <p class="form-section-description">El formulario no se enviará si falta un dato obligatorio o si alguna no conformidad no tiene evidencia.</p>
+
+              <div id="formErrorAlert"
+                   class="alert alert-danger"
+                   role="alert"
+                   aria-live="assertive"
+                   hidden></div>
+              <div id="submitErrorAlert"
+                   class="alert alert-danger"
+                   role="alert"
+                   aria-live="assertive"
+                   tabindex="-1"
+                   hidden>
+                No fue posible registrar la inspección en este momento. La información capturada se conservó. Puedes intentar enviarla de nuevo.
+              </div>
+
               <div class="form-actions">
-                <button class="btn btn-primary btn-lg" type="submit">
-                  <i class="bi {{SUBMIT_ICON}} me-2" aria-hidden="true"></i>{{SUBMIT_LABEL}}
+                <button class="btn btn-primary btn-lg" type="submit" id="submitButton">
+                  <i class="bi bi-send me-2" aria-hidden="true"></i>
+                  Enviar inspección
                 </button>
               </div>
             </div>
@@ -141,19 +437,16 @@
     </section>
   </main>
 
-  <!-- TEMPLATE CORE -->
   <footer class="fft-footer text-center py-4 mt-5">
     <div class="container">
       <p class="mb-1">&copy; <span id="currentYear"></span> FFT México. Todos los derechos reservados.</p>
-      <!-- TEMPLATE CONFIGURATION -->
-      <p class="mb-0 small">{{FOOTER_DESCRIPTION}}</p>
+      <p class="mb-0 small">Check List - Extensión Eléctrica · 02040p45 Rev. 03</p>
     </div>
   </footer>
 
-  <!-- TEMPLATE CORE -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
           crossorigin="anonymous"></script>
-  <script src="main.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>

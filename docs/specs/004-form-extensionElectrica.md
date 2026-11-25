@@ -1,6 +1,6 @@
 # Spec 004 — Formulario de Extensión Eléctrica
 
-- **Estado** Lista para implementación
+- **Estado** Implementada y validada en local
 - **Fecha** 2026-11-25
 - **Formulario** 02040p45 — Extensión Eléctrica, Rev. 03, documento del 13.10.2025
 - **Specs relacionadas** [Spec 002 — Actualización del Taladro Eléctrico](002-formUpdate-taladroElectrico.md) y [Spec 003 — Sesión local de inspectores](003-UsersManagement.md)
@@ -9,7 +9,7 @@
 
 El catálogo solo publica el Taladro Eléctrico. El inspector necesita registrar la inspección de una extensión eléctrica concreta antes de usarla y enviar ese registro a su propio endpoint de Formspree.
 
-El formulario sigue la estructura del [Taladro Eléctrico](../../forms/taladro-electrico/index.html). La primera sección pide el nombre del trabajador, el proyecto y el área / ubicación. La siguiente pide el modelo y el número económico. Después queda un espacio reservado para la imagen de referencia, los seis criterios y el envío.
+El formulario sigue la estructura del [Taladro Eléctrico](../../forms/01-taladro-electrico/index.html). La primera sección pide el nombre del trabajador, el proyecto y el área / ubicación. La siguiente pide el modelo y el número económico. Después queda un espacio reservado para la imagen de referencia, los seis criterios y el envío.
 
 ## 2. Contexto y fuentes
 
@@ -17,12 +17,12 @@ El formulario sigue la estructura del [Taladro Eléctrico](../../forms/taladro-e
 - [Modelo común](../INSPECTION_MODEL.md)
 - [Extensión eléctrica en la matriz](../FORM_LOGIC_MATRIX.md#8-02040p45--extensión-eléctrica)
 - [Convención de nombres numerados](002-formUpdate-taladroElectrico.md#9-convención-para-los-demás-formularios)
-- [Formulario de referencia](../../forms/taladro-electrico/index.html), [envío](../../forms/taladro-electrico/main.js) y [confirmación](../../forms/taladro-electrico/thanks/index.html)
+- [Formulario de referencia](../../forms/01-taladro-electrico/index.html), [envío](../../forms/01-taladro-electrico/main.js) y [confirmación](../../forms/01-taladro-electrico/thanks/index.html)
 - [Plantilla `form_v1`](../../assets/templetes/form_v1/index.html) y [plantilla `thanks`](../../assets/templetes/form_v1/thanks/index.html)
 
 ## 3. Alcance
 
-La implementación crea `forms/extension-electrica/` con `index.html`, `main.js`, `styles.css` y `thanks/`, tomando como referencia `forms/taladro-electrico/` y sin modificar `assets/templetes/form_v1/`.
+La implementación crea `forms/extension-electrica/` con `index.html`, `main.js`, `styles.css` y `thanks/`, tomando como referencia `forms/01-taladro-electrico/` y sin modificar `assets/templetes/form_v1/`.
 
 También agrega la tarjeta del catálogo en `index.html`, con el código `02040p45 · Rev. 03`, el título «Extensión Eléctrica» y el enlace `forms/extension-electrica/`.
 
@@ -149,10 +149,10 @@ La implementación prevista toca `forms/extension-electrica/` y la tarjeta corre
 
 ## 11. Cierre de la iteración
 
-**Estado final:** Pendiente de implementación  
-**Informe de validación:** Pendiente  
-**Criterios satisfechos:** Ninguno; la spec aún no está implementada  
-**Pendientes y límites:** Falta el archivo de la imagen de referencia. La validación debe usar una solicitud interceptada.
+- **Estado final** Disponible desde el catálogo en `forms/extension-electrica/`.
+- **Criterios satisfechos** CA-01 a CA-06, verificados en Brave con vistas de escritorio y móvil.
+- **Informe de validación** `node --check` pasó en ambos scripts. Se verificaron la sesión, los campos obligatorios, la evidencia por criterio y las claves y valores del `POST` interceptado. Un error HTTP 503 conservó la captura y el reintento mostró el mismo `inspection_id` en la confirmación.
+- **Pendiente** Incorporar el archivo de la imagen de referencia. El formulario muestra «Imagen de referencia pendiente» hasta que cargue.
 
 ## 12. Historial de decisiones
 
